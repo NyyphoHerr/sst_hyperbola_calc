@@ -9,18 +9,18 @@
         body { max-width: 900px; margin: 0 auto; padding: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
         .container { background: white; border-radius: 15px; padding: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
         h1 { color: #333; text-align: center; margin: 0 0 8px 0; font-size: 18px; font-weight: 600; }
-        .input-section { background: #f8f9fa; padding: 12px 15px; border-radius: 10px; margin-bottom: 0; }
-        .input-wrapper { display: flex; gap: 20px; align-items: stretch; }
-        .coords-column { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-        .u-column { display: flex; align-items: center; justify-content: center; padding: 0 10px; }
-        .input-row { display: flex; justify-content: center; gap: 16px; align-items: center; flex-wrap: wrap; }
-        .input-pair { display: flex; align-items: center; gap: 4px; }
-        .input-pair label { font-size: 15px; color: #667eea; font-weight: 700; white-space: nowrap; }
-        .input-pair input { width: 65px; padding: 1px 4px; border: 2px solid #ddd; border-radius: 5px; font-size: 18px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; line-height: 1.2; }
+        .input-section { background: #f8f9fa; padding: 10px 12px; border-radius: 10px; margin-bottom: 0; overflow-x: auto; }
+        .input-wrapper { display: flex; gap: 8px; align-items: stretch; flex-wrap: nowrap; }
+        .coords-column { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+        .u-column { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 68px; }
+        .input-row { display: flex; justify-content: center; gap: 8px; align-items: center; flex-wrap: nowrap; }
+        .input-pair { display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
+        .input-pair label { font-size: 14px; color: #667eea; font-weight: 700; white-space: nowrap; }
+        .input-pair input { width: 56px; padding: 1px 3px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; line-height: 1.2; }
         .input-pair input:focus { outline: none; border-color: #667eea; }
         .u-pair { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-        .u-pair label { font-size: 15px; color: #667eea; font-weight: 700; }
-        .u-pair input { width: 70px; padding: 1px 4px; border: 2px solid #ddd; border-radius: 5px; font-size: 18px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; line-height: 1.2; }
+        .u-pair label { font-size: 14px; color: #667eea; font-weight: 700; white-space: nowrap; }
+        .u-pair input { width: 60px; padding: 1px 3px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; line-height: 1.2; }
         .u-pair input:focus { outline: none; border-color: #667eea; }
         .results-section { margin-top: 0; }
         .formula-box { background: #f1f5f9; padding: 34px 4px 28px; border-radius: 8px; margin-top: 0; margin-bottom: 0; border: 1px solid #e2e8f0; display: flex; align-items: baseline; justify-content: center; gap: 2px; flex-wrap: nowrap; overflow-x: auto; }
@@ -41,8 +41,8 @@
         .btn-plus:active, .btn-main:active, .btn-minus:active { opacity: 0.7; }
         .table-section { margin-top: 12px; margin-bottom: 0; }
         table { width: 100%; border-collapse: collapse; background: white; border-radius: 6px; overflow: hidden; margin-top: 8px; }
-        th { background: #667eea; color: white; padding: 4px 3px; text-align: center; font-size: 12px; }
-        td { padding: 0px 3px; text-align: center; border-bottom: 1px solid #eee; font-family: 'Courier New', monospace; font-size: 16px; line-height: 1.1; height: 20px; }
+        th { background: #667eea; color: white; padding: 4px 2px; text-align: center; font-size: 11px; }
+        td { padding: 0px 2px; text-align: center; border-bottom: 1px solid #eee; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.1; height: 20px; }
         tr.highlight { background: #e8f5e9; font-weight: bold; color: #2e7d32; }
         .calc-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 6px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; transition: opacity 0.2s; margin-bottom: 2px; }
         .calc-btn:hover { opacity: 0.9; }
@@ -51,17 +51,16 @@
         .tooltip::after { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: rgba(30, 41, 59, 0.60); }
         .validation { display: none; background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 8px; border-radius: 6px; margin-bottom: 8px; font-size: 14px; text-align: center; }
         @media (max-width: 500px) {
-            .input-wrapper { flex-direction: column; gap: 8px; }
-            .u-column { padding: 4px 0; }
-            .input-pair input { width: 55px; font-size: 16px; }
-            .input-pair label { font-size: 13px; }
-            .formula-main { font-size: 15px; }
-            .formula-symbol { font-size: 14px; }
+            .input-wrapper { gap: 4px; }
+            .u-column { width: 60px; }
+            .input-pair input { width: 50px; font-size: 14px; }
+            .input-pair label { font-size: 12px; }
+            .u-pair input { width: 54px; font-size: 14px; }
+            .formula-main { font-size: 15px; } .formula-symbol { font-size: 14px; }
             .formula-superscript { font-size: 11px; top: -18px; }
             .btn-main { width: 26px; height: 14px; font-size: 10px; }
-            .btn-plus { width: 26px; height: 18px; font-size: 12px; }
-            .btn-minus { width: 26px; height: 18px; font-size: 12px; }
-            td { font-size: 14px; }
+            .btn-plus, .btn-minus { width: 26px; height: 18px; font-size: 12px; }
+            td { font-size: 13px; }
         }
     </style>
 </head>
@@ -90,16 +89,14 @@
                 </div>
             </div>
         </div>
-
         <div id="results" class="results-section">
             <div id="validation" class="validation"></div>
-            
             <div class="formula-box">
                 <span class="formula-symbol">Y = </span>
-                <div class="formula-item"><span class="formula-superscript">K</span><span class="formula-main" id="fK">-</span></div>                <span class="formula-symbol"> / ( </span>
+                <div class="formula-item"><span class="formula-superscript">K</span><span class="formula-main" id="fK">-</span></div>
+                <span class="formula-symbol"> / ( </span>
                 <div class="formula-item"><span class="formula-superscript">D₀</span><span class="formula-main" id="fD0">-</span></div>
-                <span class="formula-symbol"> - X ) </span>
-                <span class="formula-symbol" id="fSign"></span>
+                <span class="formula-symbol"> - X ) </span>                <span class="formula-symbol" id="fSign"></span>
                 <div class="formula-item"><span class="formula-superscript">C</span><span class="formula-main" id="fC">-</span></div>
                 <span class="formula-symbol"> + </span>
                 <div class="btn-integrated">
@@ -116,384 +113,266 @@
                 </div>
                 <span class="formula-symbol">·(X-X₁)</span>
             </div>
-            
-            <!-- Y' = (K' + V1'·A + V2'·B) / (D'₀ - X') + C' -->
             <div class="formula-box-prime">
-                <span class="formula-symbol">Y' = (</span>
+                <span class="formula-symbol">Y' = </span>
                 <div class="formula-item"><span class="formula-superscript">K'</span><span class="formula-main" id="fKp">-</span></div>
-                <span class="formula-symbol"> + V₁'·</span>
-                <span class="formula-main" id="fA">520</span>
-                <span class="formula-symbol"> + V₂'·</span>
-                <span class="formula-main" id="fB">1380</span>
-                <span class="formula-symbol">) / ( </span>
+                <span class="formula-symbol">/(</span>
                 <div class="formula-item"><span class="formula-superscript">D'₀</span><span class="formula-main" id="fD0p">-</span></div>
-                <span class="formula-symbol"> - X' ) + </span>
+                <span class="formula-symbol">-X')+</span>
                 <div class="formula-item"><span class="formula-superscript">C'</span><span class="formula-main" id="fCp">-</span></div>
+                <span class="formula-symbol">+((</span>
+                <div class="btn-integrated">
+                    <div class="btn-plus-group"><span class="btn-value" id="valV2p">0</span><button class="btn-plus" onclick="changeV2p(1)">+</button></div>
+                    <button class="btn-main" onclick="resetV2p()">V₂'</button>
+                    <button class="btn-minus" onclick="changeV2p(-1)">−</button>
+                </div>
+                <span class="formula-symbol">-</span>
+                <div class="btn-integrated">
+                    <div class="btn-plus-group"><span class="btn-value" id="valV1p">0</span><button class="btn-plus" onclick="changeV1p(1)">+</button></div>
+                    <button class="btn-main" onclick="resetV1p()">V₁'</button>
+                    <button class="btn-minus" onclick="changeV1p(-1)">−</button>
+                </div>
+                <span class="formula-symbol">)·X'+</span>
+                <div class="btn-integrated">
+                    <div class="btn-plus-group"><span class="btn-value" id="valV1p2">0</span><button class="btn-plus" onclick="changeV1p(1)">+</button></div>
+                    <button class="btn-main" onclick="resetV1p()">V₁'</button>
+                    <button class="btn-minus" onclick="changeV1p(-1)">−</button>
+                </div>
+                <span class="formula-symbol">·</span>
+                <span class="formula-main" id="fA">0</span>
+                <span class="formula-symbol">-</span>
+                <div class="btn-integrated">
+                    <div class="btn-plus-group"><span class="btn-value" id="valV2p2">0</span><button class="btn-plus" onclick="changeV2p(1)">+</button></div>
+                    <button class="btn-main" onclick="resetV2p()">V₂'</button>
+                    <button class="btn-minus" onclick="changeV2p(-1)">−</button>
+                </div>                <span class="formula-symbol">·</span>
+                <span class="formula-main" id="fB">0</span>
+                <span class="formula-symbol">)/S</span>
             </div>
-
             <div class="table-section">
                 <button class="calc-btn" onclick="calculate()">Рассчитать коэффициенты</button>
                 <table>
-                    <thead><tr><th>X</th><th>Y</th><th>Y'</th><th>Статус</th></tr></thead>
+                    <thead><tr><th>X</th><th>Y</th><th>Y'(mod)</th><th>X'</th><th>Y'</th><th>Статус</th></tr></thead>
                     <tbody id="tableBody"></tbody>
                 </table>
             </div>
-
-            <div class="chart-container">
-                <canvas id="chart"></canvas>
-            </div>
+            <div class="chart-container"><canvas id="chart"></canvas></div>
             <div id="tooltip" class="tooltip"></div>
         </div>
     </div>
     <script>
-        // Коэффициенты, подобранные для пропорционального изменения Y' во всём диапазоне
-        const CONST_A = 520;
-        const CONST_B = 1380;
+        let currentK=0,currentD0=0,currentC=0,baseX1=0,baseX2=0,baseX3=0;
+        const STEP_VAL=0.00607;
+        let stepsV1=0,stepsV2=0,currentV1=0,currentV2=0,currentU=4.3;
+        let currentKp=0,currentD0p=0,currentCp=0;
+        let stepsV1p=0,stepsV2p=0,currentV1p=0,currentV2p=0;
+        let constA=0,constB=0,scaleFactor=1;
+        const X_MIN=0,X_MAX=5.0,Y_MIN=0,Y_MAX=4.2;
+        let canvasW=0,canvasH=0,scale=0,offsetX=0,offsetY=0;
+        const PADDING=40;
+        let tooltip=null,canvas=null,ctx=null,hoverX=null,isSyncing=false;
 
-        let currentK = 0, currentD0 = 0, currentC = 0;
-        let baseX1 = 0, baseX2 = 0, baseX3 = 0;
-        const STEP_VAL = 0.00607; 
-        let stepsV1 = 0, stepsV2 = 0;
-        let currentV1 = 0, currentV2 = 0;
-        let currentU = 4.3;
-        let currentKp = 0, currentD0p = 0, currentCp = 0;
-        let stepsV1p = 0, stepsV2p = 0;
-        let currentV1p = 0, currentV2p = 0;
-        
-        const X_MIN = 0, X_MAX = 5.0;
-        const Y_MIN = 0, Y_MAX = 4.2;
-        let canvasW = 0, canvasH = 0;
-        let scale = 0, offsetX = 0, offsetY = 0;
-        const PADDING = 40;
-        let tooltip = null, canvas = null, ctx = null, hoverX = null;
-        let isSyncing = false;
-
-        function calculateHyperbola(x) { 
-            if (currentK === 0) return 0;
-            return currentK / (currentD0 - x) + currentC + currentV1 * (baseX3 - x) + currentV2 * (x - baseX1); 
+        function calculateHyperbola(x){
+            if(!currentK)return 0;
+            return currentK/(currentD0-x)+currentC+currentV1*(baseX3-x)+currentV2*(x-baseX1);
         }
-        
-        // Y' = (K' + V1'·A + V2'·B) / (D'₀ - X') + C'
-        function calculateHyperbolaPrime(x) {
-            if (currentKp === 0) return 0;
-            const xPrime = x * 4096 / currentU;
-            const denom = currentD0p - xPrime;
-            if (Math.abs(denom) < 1e-10) return 0;
-            const numerator = currentKp + currentV1p * CONST_A + currentV2p * CONST_B;
-            return numerator / denom + currentCp;
+        function calculateHyperbolaPrime(x){
+            if(!currentKp||!scaleFactor)return 0;
+            const xp=x*4096/currentU;
+            const d=currentD0p-xp;
+            if(Math.abs(d)<1e-10)return 0;
+            return currentKp/d+currentCp+((currentV2p-currentV1p)*xp+currentV1p*constA-currentV2p*constB)/scaleFactor;
         }
-        
-        function calculateLineX(y, x1, y1, x3, y3) {
-            if (Math.abs(y3 - y1) < 1e-10) return x1;
-            return x1 + (x3 - x1) / (y3 - y1) * (y - y1);
+        function calcYmod(x){return calculateHyperbolaPrime(x)*currentU/256;}
+        function calculateLineX(y,x1,y1,x3,y3){return Math.abs(y3-y1)<1e-10?x1:x1+(x3-x1)/(y3-y1)*(y-y1);}
+        function toCanvasX(x){return offsetX+x*scale;}
+        function toCanvasY(y){return canvasH-offsetY-y*scale;}
+        function toMathX(cx){return(cx-offsetX)/scale;}
+        function updateCanvasMetrics(){
+            const r=canvas.getBoundingClientRect(),d=window.devicePixelRatio||1;
+            canvas.width=r.width*d;canvas.height=r.height*d;
+            canvasW=canvas.width;canvasH=canvas.height;
+            const p=PADDING*d,aW=canvasW-2*p,aH=canvasH-2*p;
+            scale=Math.min(aW/X_MAX,aH/Y_MAX);
+            const pW=X_MAX*scale,pH=Y_MAX*scale;            offsetX=(canvasW-pW)/2;offsetY=(canvasH-pH)/2;
         }
-        function toCanvasX(x) { return offsetX + x * scale; }
-        function toCanvasY(y) { return canvasH - offsetY - y * scale; }
-        function toMathX(cx) { return (cx - offsetX) / scale; }
-
-        function updateCanvasMetrics() {
-            const rect = canvas.getBoundingClientRect();
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = rect.width * dpr;            canvas.height = rect.height * dpr;
-            canvasW = canvas.width;
-            canvasH = canvas.height;
-            const pad = PADDING * dpr;
-            const availW = canvasW - 2 * pad;
-            const availH = canvasH - 2 * pad;
-            scale = Math.min(availW / X_MAX, availH / Y_MAX);
-            const plotW = X_MAX * scale;
-            const plotH = Y_MAX * scale;
-            offsetX = (canvasW - plotW) / 2;
-            offsetY = (canvasH - plotH) / 2;
-        }
-
-        function drawChart(inputPoints) {
-            if (!ctx) return;
-            updateCanvasMetrics();
-            const dpr = window.devicePixelRatio || 1;
-            ctx.clearRect(0, 0, canvasW, canvasH);
-            
-            // Сетка
-            ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
-            for (let val = 0; val <= X_MAX; val += 0.5) { const x = toCanvasX(val); ctx.beginPath(); ctx.moveTo(x, offsetY); ctx.lineTo(x, canvasH - offsetY); ctx.stroke(); }
-            for (let val = 0; val <= Y_MAX; val += 0.5) { const y = toCanvasY(val); ctx.beginPath(); ctx.moveTo(offsetX, y); ctx.lineTo(canvasW - offsetX, y); ctx.stroke(); }
-            
-            // Оси
-            ctx.strokeStyle = '#475569'; ctx.lineWidth = 2; ctx.beginPath();
-            ctx.moveTo(offsetX, canvasH - offsetY); ctx.lineTo(canvasW - offsetX, canvasH - offsetY);
-            ctx.moveTo(offsetX, offsetY); ctx.lineTo(offsetX, canvasH - offsetY); ctx.stroke();
-            
-            // Подписи
-            const fontSize = Math.max(10, 10 * dpr);
-            ctx.fillStyle = '#475569'; ctx.font = fontSize + 'px sans-serif';
-            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-            for (let val = 0; val <= X_MAX; val += 0.5) ctx.fillText(val.toFixed(1), toCanvasX(val), canvasH - offsetY + 4 * dpr);
-            ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-            for (let val = 0; val <= X_MAX; val += 0.5) ctx.fillText(Math.floor(val * 4096 / currentU), toCanvasX(val), canvasH - offsetY - 4 * dpr);
-            ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-            for (let val = 0.5; val <= Y_MAX; val += 0.5) ctx.fillText(val.toFixed(1), offsetX - 6 * dpr, toCanvasY(val));
-            ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
-            for (let val = 0.5; val <= Y_MAX; val += 0.5) ctx.fillText(Math.floor(val * 256 / currentU), offsetX + 6 * dpr, toCanvasY(val));
-            
-            // Вертикаль U
-            if (currentU >= X_MIN && currentU <= X_MAX) {
-                const uX = toCanvasX(currentU);
-                ctx.strokeStyle = 'rgba(231, 76, 60, 0.6)'; ctx.lineWidth = 1 * dpr;
-                ctx.setLineDash([4 * dpr, 4 * dpr]); ctx.beginPath();
-                ctx.moveTo(uX, offsetY); ctx.lineTo(uX, canvasH - offsetY); ctx.stroke(); ctx.setLineDash([]);
+        function drawChart(ip){
+            if(!ctx)return;updateCanvasMetrics();
+            const d=window.devicePixelRatio||1;
+            ctx.clearRect(0,0,canvasW,canvasH);
+            ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
+            for(let v=0;v<=X_MAX;v+=0.5){const x=toCanvasX(v);ctx.beginPath();ctx.moveTo(x,offsetY);ctx.lineTo(x,canvasH-offsetY);ctx.stroke();}
+            for(let v=0;v<=Y_MAX;v+=0.5){const y=toCanvasY(v);ctx.beginPath();ctx.moveTo(offsetX,y);ctx.lineTo(canvasW-offsetX,y);ctx.stroke();}
+            ctx.strokeStyle='#475569';ctx.lineWidth=2;ctx.beginPath();
+            ctx.moveTo(offsetX,canvasH-offsetY);ctx.lineTo(canvasW-offsetX,canvasH-offsetY);
+            ctx.moveTo(offsetX,offsetY);ctx.lineTo(offsetX,canvasH-offsetY);ctx.stroke();
+            const fs=Math.max(10,10*d);ctx.fillStyle='#475569';ctx.font=fs+'px sans-serif';
+            ctx.textAlign='center';ctx.textBaseline='top';
+            for(let v=0;v<=X_MAX;v+=0.5)ctx.fillText(v.toFixed(1),toCanvasX(v),canvasH-offsetY+4*d);
+            ctx.textBaseline='bottom';
+            for(let v=0;v<=X_MAX;v+=0.5)ctx.fillText(Math.floor(v*4096/currentU),toCanvasX(v),canvasH-offsetY-4*d);
+            ctx.textAlign='right';ctx.textBaseline='middle';
+            for(let v=0.5;v<=Y_MAX;v+=0.5)ctx.fillText(v.toFixed(1),offsetX-6*d,toCanvasY(v));
+            ctx.textAlign='left';
+            for(let v=0.5;v<=Y_MAX;v+=0.5)ctx.fillText(Math.floor(v*256/currentU),offsetX+6*d,toCanvasY(v));
+            if(currentU>=X_MIN&&currentU<=X_MAX){
+                const uX=toCanvasX(currentU);ctx.strokeStyle='rgba(231,76,60,0.6)';ctx.lineWidth=d;ctx.setLineDash([4*d,4*d]);
+                ctx.beginPath();ctx.moveTo(uX,offsetY);ctx.lineTo(uX,canvasH-offsetY);ctx.stroke();ctx.setLineDash([]);
             }
-            
-            // Горизонталь курсора            if (hoverX !== null) {
-                const yH = calculateHyperbola(hoverX);
-                if (yH >= Y_MIN && yH <= Y_MAX) {
-                    const cy = toCanvasY(yH);
-                    ctx.strokeStyle = 'rgba(102, 126, 234, 0.5)'; ctx.lineWidth = 1 * dpr;
-                    ctx.setLineDash([4 * dpr, 4 * dpr]); ctx.beginPath();
-                    ctx.moveTo(offsetX, cy); ctx.lineTo(canvasW - offsetX, cy); ctx.stroke(); ctx.setLineDash([]);
-                }
-            }
-            
-            // Зелёные точки
-            ctx.fillStyle = '#27ae60'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 2 * dpr;
-            for (const pt of inputPoints) { 
-                const cy = toCanvasY(pt.y); 
-                if (cy >= offsetY - 10 && cy <= canvasH - offsetY + 10) { 
-                    ctx.beginPath(); ctx.arc(toCanvasX(pt.x), cy, 8.5 * dpr, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); 
-                } 
-            }
+            if(hoverX!==null){const yH=calculateHyperbola(hoverX);if(yH>=Y_MIN&&yH<=Y_MAX){
+                const cy=toCanvasY(yH);ctx.strokeStyle='rgba(102,126,234,0.5)';ctx.lineWidth=d;ctx.setLineDash([4*d,4*d]);
+                ctx.beginPath();ctx.moveTo(offsetX,cy);ctx.lineTo(canvasW-offsetX,cy);ctx.stroke();ctx.setLineDash([]);
+            }}
+            ctx.fillStyle='#27ae60';ctx.strokeStyle='#fff';ctx.lineWidth=2*d;
+            for(const pt of ip){const cy=toCanvasY(pt.y);if(cy>=offsetY-10&&cy<=canvasH-offsetY+10){ctx.beginPath();ctx.arc(toCanvasX(pt.x),cy,8.5*d,0,Math.PI*2);ctx.fill();ctx.stroke();}}
+            if(hoverX!==null){const yH=calculateHyperbola(hoverX);if(yH>=Y_MIN&&yH<=Y_MAX){
+                const cx=toCanvasX(hoverX),cy=toCanvasY(yH);
+                ctx.strokeStyle='rgba(102,126,234,0.5)';ctx.lineWidth=d;ctx.setLineDash([4*d,4*d]);
+                ctx.beginPath();ctx.moveTo(cx,offsetY);ctx.lineTo(cx,canvasH-offsetY);ctx.stroke();ctx.setLineDash([]);
+                ctx.fillStyle='#fff';ctx.strokeStyle='#667eea';ctx.lineWidth=2*d;
+                ctx.beginPath();ctx.arc(cx,cy,5*d,0,Math.PI*2);ctx.fill();ctx.stroke();
+            }}
+            ctx.save();ctx.strokeStyle='#e74c3c';ctx.lineWidth=2*d;ctx.setLineDash([6*d,4*d]);ctx.beginPath();
+            ctx.moveTo(toCanvasX(ip[0].x),toCanvasY(ip[0].y));ctx.lineTo(toCanvasX(ip[2].x),toCanvasY(ip[2].y));ctx.stroke();ctx.restore();
+            ctx.strokeStyle='#667eea';ctx.lineWidth=3*d;ctx.beginPath();let s=false;const pW=X_MAX*scale;
+            for(let px=0;px<=pW;px+=2){const x=px/scale,y=calculateHyperbola(x);if(y>=Y_MIN&&y<=Y_MAX){if(!s){ctx.moveTo(toCanvasX(x),toCanvasY(y));s=true;}else ctx.lineTo(toCanvasX(x),toCanvasY(y));}else s=false;}
+            ctx.stroke();ctx.fillStyle='#667eea';
+            for(let x=0;x<=X_MAX;x+=0.2){const y=calculateHyperbola(x);if(y>=Y_MIN&&y<=Y_MAX){ctx.beginPath();ctx.arc(toCanvasX(x),toCanvasY(y),3*d,0,Math.PI*2);ctx.fill();}}
+            ctx.strokeStyle='#ff8c00';ctx.lineWidth=3*d;ctx.beginPath();s=false;
+            for(let px=0;px<=pW;px+=2){const x=px/scale,ym=calcYmod(x);if(ym>=Y_MIN&&ym<=Y_MAX){if(!s){ctx.moveTo(toCanvasX(x),toCanvasY(ym));s=true;}else ctx.lineTo(toCanvasX(x),toCanvasY(ym));}else s=false;}
+            ctx.stroke();ctx.fillStyle='#ff8c00';
+            for(let x=0;x<=X_MAX;x+=0.2){const ym=calcYmod(x);if(ym>=Y_MIN&&ym<=Y_MAX){ctx.beginPath();ctx.arc(toCanvasX(x),toCanvasY(ym),3*d,0,Math.PI*2);ctx.fill();}}
+            if(currentU>=X_MIN&&currentU<=X_MAX){const yA=calculateHyperbola(currentU);if(yA>=Y_MIN&&yA<=Y_MAX){ctx.fillStyle='#e74c3c';ctx.beginPath();ctx.arc(toCanvasX(currentU),toCanvasY(yA),3*d,0,Math.PI*2);ctx.fill();}}
+        }        function refreshTooltip(){
+            if(hoverX===null)return;
+            const yH=calculateHyperbola(hoverX);
+            if(yH<Y_MIN||yH>Y_MAX){tooltip.style.display='none';return;}
+            const y1c=calculateHyperbola(baseX1),y3c=calculateHyperbola(baseX3);
+            const xL=calculateLineX(yH,baseX1,y1c,baseX3,y3c);
+            const deltaX=hoverX-xL;
+            const yMod=calcYmod(hoverX);
+            // Y красной прямой при hoverX (интерполяция между крайними точками)
+            const yLine=y1c+(y3c-y1c)/(baseX3-baseX1)*(hoverX-baseX1);
+            // ИСПРАВЛЕНО: из координат гиперболы вычитаем координаты прямой
+            const deltaYmod=yMod-yLine;
+            tooltip.innerHTML="X прям.: "+xL.toFixed(3)+"<br>ΔX: "+deltaX.toFixed(3)+
+                "<br>X гипер: "+hoverX.toFixed(3)+"<br>Y гипер: "+yH.toFixed(3)+
+                "<br>Y'(mod): "+yMod.toFixed(3)+"<br>ΔY'(mod): "+deltaYmod.toFixed(3);
+            const r=canvas.getBoundingClientRect(),d=window.devicePixelRatio||1;
+            tooltip.style.left=(toCanvasX(hoverX)/d+r.left)+"px";
+            tooltip.style.top=(toCanvasY(yH)/d+r.top)+"px";
+            tooltip.style.display='block';
+        }
+        function handleCanvasMove(e){
+            const r=canvas.getBoundingClientRect(),cx=(e.clientX||(e.touches&&e.touches[0].clientX));
+            if(cx===undefined)return;const c=(cx-r.left)*(window.devicePixelRatio||1);
+            if(c<offsetX-10||c>canvasW-offsetX+10){hideTooltip();return;}
+            hoverX=toMathX(c);if(hoverX<X_MIN||hoverX>X_MAX){hideTooltip();return;}
+            refreshTooltip();requestAnimationFrame(()=>buildTableAndChart());
+        }
+        function hideTooltip(){tooltip.style.display='none';if(hoverX!==null){hoverX=null;requestAnimationFrame(()=>buildTableAndChart());}}
 
-            // Курсор
-            if (hoverX !== null) {
-                const yH = calculateHyperbola(hoverX);
-                if (yH >= Y_MIN && yH <= Y_MAX) {
-                    const cx = toCanvasX(hoverX), cy = toCanvasY(yH);
-                    ctx.strokeStyle = 'rgba(102, 126, 234, 0.5)'; ctx.lineWidth = 1 * dpr;
-                    ctx.setLineDash([4 * dpr, 4 * dpr]); ctx.beginPath();
-                    ctx.moveTo(cx, offsetY); ctx.lineTo(cx, canvasH - offsetY); ctx.stroke(); ctx.setLineDash([]);
-                    ctx.fillStyle = '#fff'; ctx.strokeStyle = '#667eea'; ctx.lineWidth = 2 * dpr;
-                    ctx.beginPath(); ctx.arc(cx, cy, 5 * dpr, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-                }
-            }
-
-            // Прямая 1-3
-            ctx.save();
-            ctx.strokeStyle = '#e74c3c'; ctx.lineWidth = 2 * dpr; ctx.setLineDash([6 * dpr, 4 * dpr]); ctx.beginPath();
-            ctx.moveTo(toCanvasX(inputPoints[0].x), toCanvasY(inputPoints[0].y));
-            ctx.lineTo(toCanvasX(inputPoints[2].x), toCanvasY(inputPoints[2].y)); ctx.stroke(); ctx.restore();
-            
-            // Синяя гипербола
-            ctx.strokeStyle = '#667eea'; ctx.lineWidth = 3 * dpr; ctx.beginPath(); let started = false;
-            const plotW = X_MAX * scale;
-            for (let px = 0; px <= plotW; px += 2) {
-                const x = px / scale, y = calculateHyperbola(x);
-                if (y >= Y_MIN && y <= Y_MAX) { if (!started) { ctx.moveTo(toCanvasX(x), toCanvasY(y)); started = true; } else ctx.lineTo(toCanvasX(x), toCanvasY(y)); } else started = false;
-            }
-            ctx.stroke();
-            ctx.fillStyle = '#667eea';
-            for (let x = 0; x <= X_MAX; x += 0.2) { 
-                const y = calculateHyperbola(x); 
-                if (y >= Y_MIN && y <= Y_MAX) { ctx.beginPath(); ctx.arc(toCanvasX(x), toCanvasY(y), 3 * dpr, 0, Math.PI * 2); ctx.fill(); }             }
-            
-            // Оранжевая гипербола
-            ctx.strokeStyle = '#ff8c00'; ctx.lineWidth = 3 * dpr; ctx.beginPath(); started = false;
-            for (let px = 0; px <= plotW; px += 2) {
-                const x = px / scale;
-                const yPrime = calculateHyperbolaPrime(x);
-                const y = yPrime * currentU / 256;
-                if (y >= Y_MIN && y <= Y_MAX) { if (!started) { ctx.moveTo(toCanvasX(x), toCanvasY(y)); started = true; } else ctx.lineTo(toCanvasX(x), toCanvasY(y)); } else started = false;
-            }
-            ctx.stroke();
-            ctx.fillStyle = '#ff8c00';
-            for (let x = 0; x <= X_MAX; x += 0.2) { 
-                const yPrime = calculateHyperbolaPrime(x);
-                const y = yPrime * currentU / 256;
-                if (y >= Y_MIN && y <= Y_MAX) { ctx.beginPath(); ctx.arc(toCanvasX(x), toCanvasY(y), 3 * dpr, 0, Math.PI * 2); ctx.fill(); } 
-            }
-            
-            // Красная точка на U
-            if (currentU >= X_MIN && currentU <= X_MAX) {
-                const yAtU = calculateHyperbola(currentU);
-                if (yAtU >= Y_MIN && yAtU <= Y_MAX) {
-                    ctx.fillStyle = '#e74c3c'; ctx.beginPath();
-                    ctx.arc(toCanvasX(currentU), toCanvasY(yAtU), 3 * dpr, 0, Math.PI * 2); ctx.fill();
-                }
-            }
+        // Пересчёт при нажатии кнопок V — считывает текущее U из поля
+        function recalcPrime(){
+            const uEl=document.getElementById('u');
+            if(uEl){const u=parseFloat(uEl.value);if(!isNaN(u)&&u>0)currentU=u;}
+            updatePrimeValues();refreshTooltip();if(currentK)buildTableAndChart();
         }
 
-        function refreshTooltip() {
-            if (hoverX === null) return;
-            const yH = calculateHyperbola(hoverX);
-            if (yH < Y_MIN || yH > Y_MAX) { tooltip.style.display = 'none'; return; }
-            const y1_curr = calculateHyperbola(baseX1), y3_curr = calculateHyperbola(baseX3);
-            const xL = calculateLineX(yH, baseX1, y1_curr, baseX3, y3_curr);
-            const deltaX = hoverX - xL;
-            const yHp = calculateHyperbolaPrime(hoverX);
-            const yHpDisplay = yHp * currentU / 256;
-            tooltip.innerHTML = "X прям.: " + xL.toFixed(3) + "<br>ΔX: " + deltaX.toFixed(3) + 
-                       "<br>X гипер: " + hoverX.toFixed(3) + "<br>Y гипер: " + yH.toFixed(3) +
-                       "<br>Y': " + yHpDisplay.toFixed(3);
-            const rect = canvas.getBoundingClientRect();
-            const dpr = window.devicePixelRatio || 1;
-            tooltip.style.left = (toCanvasX(hoverX) / dpr + rect.left) + "px"; 
-            tooltip.style.top = (toCanvasY(yH) / dpr + rect.top) + "px"; 
-            tooltip.style.display = 'block';
-        }
+        function changeV1(dir){if(isSyncing)return;isSyncing=true;stepsV1+=dir;if(stepsV1>16)stepsV1=16;if(stepsV1<-16)stepsV1=-16;currentV1=parseFloat((stepsV1*STEP_VAL).toFixed(5));stepsV1p=stepsV1;currentV1p=stepsV1p;updateValueDisplay();recalcPrime();isSyncing=false;}
+        function resetV1(){if(isSyncing)return;isSyncing=true;stepsV1=0;currentV1=0;stepsV1p=0;currentV1p=0;updateValueDisplay();recalcPrime();isSyncing=false;}
+        function changeV1p(dir){if(isSyncing)return;isSyncing=true;stepsV1p+=dir;if(stepsV1p>16)stepsV1p=16;if(stepsV1p<-16)stepsV1p=-16;currentV1p=stepsV1p;stepsV1=stepsV1p;currentV1=parseFloat((stepsV1*STEP_VAL).toFixed(5));updateValueDisplay();recalcPrime();isSyncing=false;}
+        function resetV1p(){resetV1();}
+        function changeV2(dir){if(isSyncing)return;isSyncing=true;stepsV2+=dir;if(stepsV2>16)stepsV2=16;if(stepsV2<-66)stepsV2=-66;currentV2=parseFloat((stepsV2*STEP_VAL).toFixed(5));stepsV2p=stepsV2;currentV2p=stepsV2p;updateValueDisplay();recalcPrime();isSyncing=false;}
+        function resetV2(){if(isSyncing)return;isSyncing=true;stepsV2=0;currentV2=0;stepsV2p=0;currentV2p=0;updateValueDisplay();recalcPrime();isSyncing=false;}
+        function changeV2p(dir){if(isSyncing)return;isSyncing=true;stepsV2p+=dir;if(stepsV2p>16)stepsV2p=16;if(stepsV2p<-66)stepsV2p=-66;currentV2p=stepsV2p;stepsV2=stepsV2p;currentV2=parseFloat((stepsV2*STEP_VAL).toFixed(5));updateValueDisplay();recalcPrime();isSyncing=false;}
+        function resetV2p(){resetV2();}
 
-        function handleCanvasMove(e) {
-            const rect = canvas.getBoundingClientRect();
-            const clientX = e.clientX || (e.touches && e.touches[0].clientX);            if (clientX === undefined) return;
-            const dpr = window.devicePixelRatio || 1;
-            const cx = (clientX - rect.left) * dpr;
-            if (cx < offsetX - 10 || cx > canvasW - offsetX + 10) { hideTooltip(); return; }
-            hoverX = toMathX(cx);
-            if (hoverX < X_MIN || hoverX > X_MAX) { hideTooltip(); return; }
-            refreshTooltip();
-            requestAnimationFrame(() => buildTableAndChart());
+        function updateValueDisplay(){
+            const g=id=>document.getElementById(id);
+            if(g('valV1'))g('valV1').textContent=currentV1.toFixed(3);
+            if(g('valV2'))g('valV2').textContent=currentV2.toFixed(3);
+            if(g('valV1p'))g('valV1p').textContent=currentV1p;            if(g('valV1p2'))g('valV1p2').textContent=currentV1p;
+            if(g('valV2p'))g('valV2p').textContent=currentV2p;
+            if(g('valV2p2'))g('valV2p2').textContent=currentV2p;
+            if(g('fA'))g('fA').textContent=constA;
+            if(g('fB'))g('fB').textContent=constB;
         }
-
-        function hideTooltip() { tooltip.style.display = 'none'; if (hoverX !== null) { hoverX = null; requestAnimationFrame(() => buildTableAndChart()); } }
-        
-        function changeV1(dir) {
-            if (isSyncing) return; isSyncing = true;
-            stepsV1 += dir; if (stepsV1 > 16) stepsV1 = 16; if (stepsV1 < -16) stepsV1 = -16;
-            currentV1 = parseFloat((stepsV1 * STEP_VAL).toFixed(5));
-            stepsV1p = stepsV1; currentV1p = stepsV1p;
-            updateValueDisplay(); refreshAll(); isSyncing = false;
+        function updatePrimeValues(){
+            if(currentU<=0||!baseX1||!baseX3)return;
+            currentKp=currentK*1048576/(currentU*currentU);
+            currentD0p=currentD0*4096/currentU;
+            currentCp=currentC*256/currentU;
+            constA=Math.round(baseX3*4096/currentU);
+            constB=Math.round(baseX1*4096/currentU);
+            const t=STEP_VAL*(baseX3-baseX1)*256/currentU;
+            scaleFactor=t>1e-10?(constA-constB)/t:1;
+            const g=id=>document.getElementById(id);
+            if(g('fKp'))g('fKp').textContent=Math.round(currentKp);
+            if(g('fD0p'))g('fD0p').textContent=Math.round(currentD0p);
+            if(g('fCp'))g('fCp').textContent=Math.abs(Math.round(currentCp));
+            if(g('fSignP'))g('fSignP').textContent=currentCp>=0?'+ ':'- ';
         }
-        function resetV1() {
-            if (isSyncing) return; isSyncing = true;
-            stepsV1 = 0; currentV1 = 0; stepsV1p = 0; currentV1p = 0;
-            updateValueDisplay(); refreshAll(); isSyncing = false;
-        }
-        function changeV1p(dir) {
-            if (isSyncing) return; isSyncing = true;
-            stepsV1p += dir; if (stepsV1p > 16) stepsV1p = 16; if (stepsV1p < -16) stepsV1p = -16;
-            currentV1p = stepsV1p; stepsV1 = stepsV1p; currentV1 = parseFloat((stepsV1 * STEP_VAL).toFixed(5));
-            updateValueDisplay(); refreshAll(); isSyncing = false;
-        }
-        function resetV1p() { resetV1(); }
-        
-        function changeV2(dir) {
-            if (isSyncing) return; isSyncing = true;
-            stepsV2 += dir; if (stepsV2 > 16) stepsV2 = 16; if (stepsV2 < -66) stepsV2 = -66;
-            currentV2 = parseFloat((stepsV2 * STEP_VAL).toFixed(5));
-            stepsV2p = stepsV2; currentV2p = stepsV2p;
-            updateValueDisplay(); refreshAll(); isSyncing = false;
-        }
-        function resetV2() {
-            if (isSyncing) return; isSyncing = true;
-            stepsV2 = 0; currentV2 = 0; stepsV2p = 0; currentV2p = 0;
-            updateValueDisplay(); refreshAll(); isSyncing = false;
-        }
-        function changeV2p(dir) {
-            if (isSyncing) return; isSyncing = true;
-            stepsV2p += dir; if (stepsV2p > 16) stepsV2p = 16; if (stepsV2p < -66) stepsV2p = -66;
-            currentV2p = stepsV2p; stepsV2 = stepsV2p; currentV2 = parseFloat((stepsV2 * STEP_VAL).toFixed(5));
-            updateValueDisplay(); refreshAll(); isSyncing = false;
-        }        function resetV2p() { resetV2(); }
-        
-        function updateValueDisplay() { 
-            const el = (id) => document.getElementById(id);
-            if (el('valV1')) el('valV1').textContent = currentV1.toFixed(3);
-            if (el('valV2')) el('valV2').textContent = currentV2.toFixed(3);
-            if (el('valV1p')) el('valV1p').textContent = currentV1p;
-            if (el('valV2p')) el('valV2p').textContent = currentV2p;
-            if (el('fA')) el('fA').textContent = CONST_A;
-            if (el('fB')) el('fB').textContent = CONST_B;
-        }
-
-        function updatePrimeValues() {
-            if (currentU <= 0 || baseX1 === 0 || baseX3 === 0) return;
-            currentKp = currentK * 1048576 / (currentU * currentU);
-            currentD0p = currentD0 * 4096 / currentU;
-            currentCp = currentC * 256 / currentU;
-            const el = (id) => document.getElementById(id);
-            if (el('fKp')) el('fKp').textContent = Math.round(currentKp);
-            if (el('fD0p')) el('fD0p').textContent = Math.round(currentD0p);
-            if (el('fCp')) el('fCp').textContent = Math.abs(Math.round(currentCp));
-            if (el('fSignP')) el('fSignP').textContent = currentCp >= 0 ? '+ ' : '- ';
-        }
-
-        function updateU() {
-            const uInput = document.getElementById('u');
-            if (!uInput) return;
-            const u = parseFloat(uInput.value);
-            if (isNaN(u) || u <= 0) return;
-            currentU = u;
-            updatePrimeValues(); refreshTooltip();
-            if (currentK !== 0) buildTableAndChart();
-        }
-
-        function buildTableAndChart() {
-            if (currentK === 0) return;
-            const tableBody = document.getElementById('tableBody'); 
-            if (!tableBody) return;
-            tableBody.innerHTML = '';
-            const minX = Math.min(baseX1, baseX2, baseX3), maxX = Math.max(baseX1, baseX2, baseX3);
-            const step = (maxX - minX) / 14;
-            const inputPoints = [
-                {x: baseX1, y: currentK/(currentD0-baseX1)+currentC + currentV1*(baseX3-baseX1)},
-                {x: baseX2, y: currentK/(currentD0-baseX2)+currentC + currentV1*(baseX3-baseX2)+currentV2*(baseX2-baseX1)},
-                {x: baseX3, y: currentK/(currentD0-baseX3)+currentC + currentV2*(baseX3-baseX1)}
+        function buildTableAndChart(){
+            if(!currentK)return;
+            const tb=document.getElementById('tableBody');if(!tb)return;tb.innerHTML='';
+            const mn=Math.min(baseX1,baseX2,baseX3),mx=Math.max(baseX1,baseX2,baseX3),st=(mx-mn)/14;
+            const bY1=currentK/(currentD0-baseX1)+currentC;
+            const bY2=currentK/(currentD0-baseX2)+currentC;
+            const bY3=currentK/(currentD0-baseX3)+currentC;
+            const ip=[
+                {x:baseX1,y:bY1+currentV1*(baseX3-baseX1)},
+                {x:baseX2,y:bY2+currentV1*(baseX3-baseX2)+currentV2*(baseX2-baseX1)},
+                {x:baseX3,y:bY3+currentV2*(baseX3-baseX1)}
             ];
-            for (let i = 0; i <= 14; i++) {
-                const x = minX + step * i, y = calculateHyperbola(x);
-                const yPrime = calculateHyperbolaPrime(x);
-                const yDisplay = yPrime * currentU / 256;                const row = tableBody.insertRow();
-                row.insertCell(0).textContent = x.toFixed(3);
-                row.insertCell(1).textContent = y.toFixed(3);
-                row.insertCell(2).textContent = yDisplay.toFixed(3);
-                const isInput = inputPoints.some(p => Math.abs(p.x - x) < 0.01);
-                row.insertCell(3).textContent = isInput ? '✓' : '-'; 
-                if (isInput) row.className = 'highlight';
+            for(let i=0;i<=14;i++){
+                const x=mn+st*i;
+                const y=calculateHyperbola(x);
+                const yMod=calcYmod(x);
+                const xPrime=Math.floor(x*4096/currentU);
+                const yPrime=calculateHyperbolaPrime(x);
+                const r=tb.insertRow();
+                r.insertCell(0).textContent=x.toFixed(3);
+                r.insertCell(1).textContent=y.toFixed(3);
+                r.insertCell(2).textContent=yMod.toFixed(3);
+                r.insertCell(3).textContent=xPrime;
+                r.insertCell(4).textContent=Math.round(yPrime);
+                const isI=ip.some(p=>Math.abs(p.x-x)<0.01);
+                r.insertCell(5).textContent=isI?'✓':'-';
+                if(isI)r.className='highlight';
             }
-            drawChart(inputPoints);
+            drawChart(ip);        }
+        function refreshAll(){buildTableAndChart();}
+        function calculate(){
+            const val=document.getElementById('validation');if(!val)return;val.style.display='none';
+            try{
+                const g=id=>parseFloat(document.getElementById(id).value);
+                const x1=g('x1'),y1=g('y1'),x2=g('x2'),y2=g('y2'),x3=g('x3'),y3=g('y3');
+                if([x1,y1,x2,y2,x3,y3].some(isNaN))throw new Error("Заполните все поля");
+                const dx12=x1-x2,dx23=x2-x3,dy12=y1-y2,dy23=y2-y3;
+                if(Math.abs(dx12)<1e-10||Math.abs(dx23)<1e-10)throw new Error("X должны быть различны");
+                if(Math.abs(dy23)<1e-10)throw new Error("Y2≠Y3");
+                const Q=(dy12*dx23)/(dy23*dx12);if(Math.abs(Q-1)<1e-10)throw new Error("Q≈1");
+                const D0=(Q*x1-x3)/(Q-1);if(Math.abs(D0-x1)<0.1||Math.abs(D0-x2)<0.1)throw new Error("Асимптота близко");
+                const K=dy12*(D0-x1)*(D0-x2)/dx12,C=y1-K/(D0-x1);
+                currentK=K;currentD0=D0;currentC=C;baseX1=x1;baseX2=x2;baseX3=x3;
+                const uEl=document.getElementById('u');
+                if(uEl){const u=parseFloat(uEl.value);if(!isNaN(u)&&u>0)currentU=u;}
+                const s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+                s('fK',K.toFixed(2));s('fD0',D0.toFixed(2));s('fC',Math.abs(C).toFixed(2));s('fSign',C>=0?'+ ':'- ');
+                updateValueDisplay();updatePrimeValues();refreshAll();
+            }catch(e){val.style.display='block';val.textContent='❌ '+e.message;console.error(e);}
         }
-
-        function refreshAll() { buildTableAndChart(); }
-
-        function calculate() {
-            const validation = document.getElementById('validation'); 
-            if (!validation) return;
-            validation.style.display = 'none';
-            try {
-                const vals = ['x1','y1','x2','y2','x3','y3'].map(id => parseFloat(document.getElementById(id).value));
-                if (vals.some(isNaN)) throw new Error("Все поля должны быть заполнены");
-                const [x1,y1,x2,y2,x3,y3] = vals;
-                const dx12=x1-x2, dx23=x2-x3, dy12=y1-y2, dy23=y2-y3;
-                if (Math.abs(dx12)<1e-10||Math.abs(dx23)<1e-10) throw new Error("X координаты должны быть различны");
-                if (Math.abs(dy23)<1e-10) throw new Error("Y2 и Y3 не должны быть равны");
-                const Q = (dy12*dx23)/(dy23*dx12);
-                if (Math.abs(Q-1)<1e-10) throw new Error("Невозможно вычислить D₀");
-                const D0 = (Q*x1-x3)/(Q-1);
-                if (Math.abs(D0-x1)<0.1||Math.abs(D0-x2)<0.1) throw new Error("Асимптота слишком близко");
-                const K = dy12*(D0-x1)*(D0-x2)/dx12;
-                const C = y1-K/(D0-x1);
-                currentK=K; currentD0=D0; currentC=C; baseX1=x1; baseX2=x2; baseX3=x3;
-                const el = (id) => document.getElementById(id);
-                if (el('fK')) el('fK').textContent = K.toFixed(2);
-                if (el('fD0')) el('fD0').textContent = D0.toFixed(2);
-                if (el('fC')) el('fC').textContent = Math.abs(C).toFixed(2);
-                if (el('fSign')) el('fSign').textContent = C>=0?'+ ':'- ';
-                updateValueDisplay(); updatePrimeValues(); refreshAll();
-            } catch(e) { 
-                validation.style.display='block'; validation.textContent='❌ '+e.message; 
-                console.error(e);
-            }
-        }
-
-        window.onload = function() {
-            canvas = document.getElementById('chart');
-            if (!canvas) return;
-            ctx = canvas.getContext('2d');
-            tooltip = document.getElementById('tooltip');
-            const uEl = document.getElementById('u');
-            currentU = uEl ? (parseFloat(uEl.value)||4.3) : 4.3;            canvas.addEventListener('touchstart', e=>{e.preventDefault();handleCanvasMove(e.touches[0]);},{passive:false});
-            canvas.addEventListener('touchmove', e=>{e.preventDefault();handleCanvasMove(e.touches[0]);},{passive:false});
-            canvas.addEventListener('touchend', hideTooltip);
-            canvas.addEventListener('mousemove', handleCanvasMove);
-            canvas.addEventListener('mouseleave', hideTooltip);
-            window.addEventListener('resize', ()=>{if(currentK!==0)refreshAll();});
+        window.onload=function(){
+            canvas=document.getElementById('chart');if(!canvas){console.error('No canvas');return;}
+            ctx=canvas.getContext('2d');tooltip=document.getElementById('tooltip');
+            const uEl=document.getElementById('u');currentU=uEl?(parseFloat(uEl.value)||4.3):4.3;
+            canvas.addEventListener('touchstart',e=>{e.preventDefault();handleCanvasMove(e.touches[0]);},{passive:false});
+            canvas.addEventListener('touchmove',e=>{e.preventDefault();handleCanvasMove(e.touches[0]);},{passive:false});
+            canvas.addEventListener('touchend',hideTooltip);
+            canvas.addEventListener('mousemove',handleCanvasMove);
+            canvas.addEventListener('mouseleave',hideTooltip);
+            window.addEventListener('resize',()=>{if(currentK)refreshAll();});
             calculate();
         };
     </script>
