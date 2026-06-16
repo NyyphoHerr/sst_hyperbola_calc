@@ -19,7 +19,6 @@
         .input-pair label { font-size: 14px; color: #667eea; font-weight: 700; white-space: nowrap; }
         .input-pair input { width: 56px; padding: 1px 3px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; line-height: 1.2; transition: border-color 0.2s, background-color 0.2s; }
         .input-pair input:focus { outline: none; border-color: #667eea; }
-        /* Подсветка полей ввода координат, превышающих U */
         .input-pair input.out-of-range { border-color: #cc0000 !important; background-color: #ffcccc !important; color: #cc0000 !important; }
         
         .u-pair { display: flex; flex-direction: column; align-items: center; gap: 2px; }
@@ -47,8 +46,8 @@
         
         .btn-integrated { position: relative; display: inline-block; margin: 0 2px; vertical-align: baseline; }
         .btn-main { width: 28px; height: 16px; font-size: 11px; font-weight: bold; border-radius: 3px; cursor: pointer; border: none; color: white; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; vertical-align: baseline; }
-        .btn-plus-group { position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 1px; }        .btn-value { font-size: 13px; font-weight: 800; color: #0f172a; font-family: 'Courier New', monospace; line-height: 1; }
-        .btn-plus { width: 28px; height: 20px; font-size: 13px; font-weight: bold; border-radius: 3px; cursor: pointer; border: none; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
+        .btn-plus-group { position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 1px; }
+        .btn-value { font-size: 13px; font-weight: 800; color: #0f172a; font-family: 'Courier New', monospace; line-height: 1; }        .btn-plus { width: 28px; height: 20px; font-size: 13px; font-weight: bold; border-radius: 3px; cursor: pointer; border: none; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
         .btn-minus { position: absolute; top: calc(100% + 2px); left: 50%; transform: translateX(-50%); width: 28px; height: 20px; font-size: 13px; font-weight: bold; border-radius: 3px; cursor: pointer; border: none; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
         .btn-plus:active, .btn-main:active, .btn-minus:active { opacity: 0.7; }
         
@@ -96,8 +95,8 @@
                         <div class="input-pair"><label>X₃</label><input type="text" id="x3" value="3.600"></div>
                     </div>
                     <div class="input-row">
-                        <div class="input-pair"><label>Y₁</label><input type="text" id="y1" value="1.200"></div>                        <div class="input-pair"><label>Y₂</label><input type="text" id="y2" value="2.200"></div>
-                        <div class="input-pair"><label>Y₃</label><input type="text" id="y3" value="3.300"></div>
+                        <div class="input-pair"><label>Y₁</label><input type="text" id="y1" value="1.200"></div>
+                        <div class="input-pair"><label>Y₂</label><input type="text" id="y2" value="2.200"></div>                        <div class="input-pair"><label>Y₃</label><input type="text" id="y3" value="3.300"></div>
                     </div>
                 </div>
                 <div class="u-column">
@@ -145,8 +144,8 @@
                 <div class="formula-item"><span class="formula-superscript">D'₀</span><span class="formula-main" id="fD0p">-</span></div>
                 <span class="formula-symbol"> - X') + </span>
                 <div class="formula-item"><span class="formula-superscript">C'</span><span class="formula-main" id="fCp">-</span></div>
-                <span class="formula-symbol"> - </span>                <div class="btn-integrated">
-                    <div class="btn-plus-group"><span class="btn-value" id="valV1p">16</span><button class="btn-plus" onclick="changeV1p(1)">+</button></div>
+                <span class="formula-symbol"> - </span>
+                <div class="btn-integrated">                    <div class="btn-plus-group"><span class="btn-value" id="valV1p">16</span><button class="btn-plus" onclick="changeV1p(1)">+</button></div>
                     <button class="btn-main" onclick="resetV1p()">V₁'</button>
                     <button class="btn-minus" onclick="changeV1p(-1)">−</button>
                 </div>
@@ -175,7 +174,9 @@
     </div>
     <script>
         let currentK=0,currentD0=0,currentC=0,baseX1=0,baseX2=0,baseX3=0;
-        const STEP_VAL=0.00607;
+        
+        // Динамический u_step больше не константа, он вычисляется в updatePrimeValues
+        // stepY теперь всегда равен 1
         
         let stepsV1=16, stepsV2=66;
         let currentV1=0, currentV2=0;
@@ -193,8 +194,8 @@
 
         function calculateHyperbola(x){
             if(!currentK)return 0;
-            return currentK/(currentD0-x)+currentC+currentV1*(baseX3-x)+currentV2*(x-baseX1);
-        }
+            return currentK/(currentD0-x)+currentC+currentV1*(baseX3-x)+currentV2*(x-baseX1);        }
+
         function calculateHyperbolaPrime(x){
             if(!currentKp||!currentD0p)return 0;
             const xp=x*4096/currentU;
@@ -242,8 +243,8 @@
             for(let v=0.5;v<=Y_MAX;v+=0.5)ctx.fillText(v.toFixed(1),offsetX-6*d,toCanvasY(v));
             ctx.textAlign='left';
             for(let v=0.5;v<=Y_MAX;v+=0.5)ctx.fillText(Math.floor(v*256/currentU),offsetX+6*d,toCanvasY(v));
-            if(currentU>=X_MIN&&currentU<=X_MAX){
-                const uX=toCanvasX(currentU);ctx.strokeStyle='rgba(231,76,60,0.6)';ctx.lineWidth=d;ctx.setLineDash([4*d,4*d]);                ctx.beginPath();ctx.moveTo(uX,offsetY);ctx.lineTo(uX,canvasH-offsetY);ctx.stroke();ctx.setLineDash([]);
+            if(currentU>=X_MIN&&currentU<=X_MAX){                const uX=toCanvasX(currentU);ctx.strokeStyle='rgba(231,76,60,0.6)';ctx.lineWidth=d;ctx.setLineDash([4*d,4*d]);
+                ctx.beginPath();ctx.moveTo(uX,offsetY);ctx.lineTo(uX,canvasH-offsetY);ctx.stroke();ctx.setLineDash([]);
             }
             if(hoverX!==null){const yH=calculateHyperbola(hoverX);if(yH>=Y_MIN&&yH<=Y_MAX){
                 const cy=toCanvasY(yH);ctx.strokeStyle='rgba(102,126,234,0.5)';ctx.lineWidth=d;ctx.setLineDash([4*d,4*d]);
@@ -306,7 +307,6 @@
             if(uEl){const u=parseFloat(uEl.value);if(!isNaN(u)&&u>0)currentU=u;}
         }
 
-        // Проверка полей ввода координат на превышение U
         function checkInputBounds(){
             const ids=['x1','x2','x3','y1','y2','y3'];
             ids.forEach(id=>{
@@ -329,25 +329,33 @@
             if(currentK)buildTableAndChart();
         }
 
+        // Синхронизация с новым динамическим u_step
         function changeV1(dir){
             if(isSyncing)return;isSyncing=true;
             stepsV1+=dir; if(stepsV1>32)stepsV1=32; if(stepsV1<0)stepsV1=0;
             currentV1p=stepsV1;
-            currentV1=parseFloat(((stepsV1-16)*STEP_VAL).toFixed(5));
+            
+            // Вычисляем точный u_step для отображения эквивалентного V1 в вольтах
+            const u_step = currentU / ((baseX3 - baseX1) * 256);
+            currentV1=parseFloat(((stepsV1-16)*u_step).toFixed(6));
+            
             updateValueDisplay();recalcAll();isSyncing=false;
         }
-        function resetV1(){
-            if(isSyncing)return;isSyncing=true;
+        function resetV1(){            if(isSyncing)return;isSyncing=true;
             stepsV1=16; currentV1p=16; currentV1=0;
             updateValueDisplay();recalcAll();isSyncing=false;
         }
-        function changeV1p(dir){changeV1(dir);}        function resetV1p(){resetV1();}
+        function changeV1p(dir){changeV1(dir);}
+        function resetV1p(){resetV1();}
 
         function changeV2(dir){
             if(isSyncing)return;isSyncing=true;
             stepsV2+=dir; if(stepsV2>82)stepsV2=82; if(stepsV2<0)stepsV2=0;
             currentV2p=stepsV2;
-            currentV2=parseFloat(((stepsV2-66)*STEP_VAL).toFixed(5));
+            
+            const u_step = currentU / ((baseX3 - baseX1) * 256);
+            currentV2=parseFloat(((stepsV2-66)*u_step).toFixed(6));
+            
             updateValueDisplay();recalcAll();isSyncing=false;
         }
         function resetV2(){
@@ -360,8 +368,8 @@
 
         function updateValueDisplay(){
             const g=id=>document.getElementById(id);
-            if(g('valV1'))g('valV1').textContent=currentV1.toFixed(3);
-            if(g('valV2'))g('valV2').textContent=currentV2.toFixed(3);
+            if(g('valV1'))g('valV1').textContent=currentV1.toFixed(6);
+            if(g('valV2'))g('valV2').textContent=currentV2.toFixed(6);
             if(g('valV1p'))g('valV1p').textContent=currentV1p;
             if(g('valV2p'))g('valV2p').textContent=currentV2p;
             if(g('fCJ'))g('fCJ').textContent=Math.round(cJ);
@@ -379,20 +387,24 @@
             
             const x1s=baseX1*4096/currentU;
             const x3s=baseX3*4096/currentU;
-            const d1=D0_base-x1s;
-            const d3=D0_base-x3s;
             
-            const stepY=STEP_VAL*(baseX3-baseX1)*256/currentU;
+            // Рациональная разность штрихованных X (убирает D0 из знаменателя)
+            const dXp = x3s - x1s; 
+                        // stepY теперь ВСЕГДА равен 1
+            const stepY = 1; 
             
-            if(Math.abs(d3-d1)>1e-10){
-                cK=stepY*d1/(d3-d1);
-                cJ=cK*d3;
-            }else{cJ=0;cK=0;}
-            
-            if(Math.abs(d1-d3)>1e-10){
-                cM=stepY*d3/(d1-d3);                cL=cM*d1;
-            }else{cL=0;cM=0;}
+            if(Math.abs(dXp)>1e-10){
+                // Новые формулы через dXp
+                cK = stepY * (D0_base - x1s) / (-dXp); // Знаменатель (x1s - x3s) = -dXp
+                cJ = cK * (D0_base - x3s);
+                
+                cM = stepY * (D0_base - x3s) / dXp;   // Знаменатель (x3s - x1s) = dXp
+                cL = cM * (D0_base - x1s);
+            }else{
+                cJ=0;cK=0;cL=0;cM=0;
+            }
 
+            // Эффективные коэффициенты с учетом центров диапазонов (16 и 66)
             currentKp = K_base - 16*cJ - 66*cL;
             currentD0p = D0_base;
             currentCp = C_base + 16*cK + 66*cM;
@@ -427,8 +439,7 @@
                 const xPrime=Math.floor(x*4096/currentU);
                 const yPrime=calculateHyperbolaPrime(x);
                 
-                const r=tb.insertRow();
-                
+                const r=tb.insertRow();                
                 const cellX = r.insertCell(0);
                 cellX.textContent=x.toFixed(3);
                 if(x > currentU) cellX.className='out-of-range';
@@ -439,7 +450,8 @@
                 
                 const cellYmod = r.insertCell(2);
                 cellYmod.textContent=yMod.toFixed(3);
-                if(yMod > currentU) cellYmod.className='out-of-range';                
+                if(yMod > currentU) cellYmod.className='out-of-range';
+                
                 const cellXp = r.insertCell(3);
                 cellXp.textContent=xPrime;
                 if(xPrime > 4095) cellXp.className='out-of-range';
@@ -476,8 +488,7 @@
                 const dx12=x1-x2,dx23=x2-x3,dy12=y1-y2,dy23=y2-y3;
                 if(Math.abs(dx12)<1e-10||Math.abs(dx23)<1e-10)throw new Error("X должны быть различны");
                 if(Math.abs(dy23)<1e-10)throw new Error("Y2≠Y3");
-                const Q=(dy12*dx23)/(dy23*dx12);if(Math.abs(Q-1)<1e-10)throw new Error("Q≈1");
-                const D0=(Q*x1-x3)/(Q-1);if(Math.abs(D0-x1)<0.1||Math.abs(D0-x2)<0.1)throw new Error("Асимптота близко");
+                const Q=(dy12*dx23)/(dy23*dx12);if(Math.abs(Q-1)<1e-10)throw new Error("Q≈1");                const D0=(Q*x1-x3)/(Q-1);if(Math.abs(D0-x1)<0.1||Math.abs(D0-x2)<0.1)throw new Error("Асимптота близко");
                 const K=dy12*(D0-x1)*(D0-x2)/dx12,C=y1-K/(D0-x1);
                 currentK=K;currentD0=D0;currentC=C;baseX1=x1;baseX2=x2;baseX3=x3;
                 
@@ -488,7 +499,8 @@
             }catch(e){val.style.display='block';val.textContent='❌ '+e.message;console.error(e);}
         }
 
-        window.onload=function(){            canvas=document.getElementById('chart');if(!canvas){console.error('No canvas');return;}
+        window.onload=function(){
+            canvas=document.getElementById('chart');if(!canvas){console.error('No canvas');return;}
             ctx=canvas.getContext('2d');tooltip=document.getElementById('tooltip');
             readCurrentU();
             checkInputBounds();
