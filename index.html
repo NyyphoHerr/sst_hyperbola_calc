@@ -9,58 +9,78 @@
         body { max-width: 900px; margin: 0 auto; padding: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
         .container { background: white; border-radius: 15px; padding: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
         h1 { color: #333; text-align: center; margin: 0 0 8px 0; font-size: 18px; font-weight: 600; }
+        
         .input-section { background: #f8f9fa; padding: 10px 12px; border-radius: 10px; margin-bottom: 0; overflow-x: auto; }
-        .input-wrapper { display: flex; gap: 8px; align-items: stretch; flex-wrap: nowrap; }
+        .input-wrapper { display: flex; gap: 4px; align-items: stretch; flex-wrap: nowrap; }
         .coords-column { flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-        .u-column { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 68px; }
+        .u-column { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 58px; padding-left: 0; }
         .input-row { display: flex; justify-content: center; gap: 8px; align-items: center; flex-wrap: nowrap; }
         .input-pair { display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
         .input-pair label { font-size: 14px; color: #667eea; font-weight: 700; white-space: nowrap; }
-        .input-pair input { width: 56px; padding: 1px 3px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; line-height: 1.2; }
+        .input-pair input { width: 56px; padding: 1px 3px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; line-height: 1.2; transition: border-color 0.2s, background-color 0.2s; }
         .input-pair input:focus { outline: none; border-color: #667eea; }
+        /* Подсветка полей ввода координат, превышающих U */
+        .input-pair input.out-of-range { border-color: #cc0000 !important; background-color: #ffcccc !important; color: #cc0000 !important; }
+        
         .u-pair { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-        .u-pair label { font-size: 14px; color: #667eea; font-weight: 700; white-space: nowrap; }
-        .u-pair input { width: 60px; padding: 1px 3px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; line-height: 1.2; }
+        .u-pair label { font-size: 13px; color: #667eea; font-weight: 700; white-space: nowrap; }
+        .u-pair input { width: 52px; padding: 1px 2px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; font-weight: 700; text-align: center; font-family: 'Courier New', monospace; line-height: 1.2; }
         .u-pair input:focus { outline: none; border-color: #667eea; }
+        
         .results-section { margin-top: 0; }
+        
         .formula-box { background: #f1f5f9; padding: 34px 4px 28px; border-radius: 8px; margin-top: 0; margin-bottom: 0; border: 1px solid #e2e8f0; display: flex; align-items: baseline; justify-content: center; gap: 2px; flex-wrap: nowrap; overflow-x: auto; }
-        .formula-box-prime { background: #f1f5f9; padding: 30px 4px 24px; border-radius: 8px; margin-top: 8px; margin-bottom: 0; border: 1px solid #e2e8f0; display: flex; align-items: baseline; justify-content: center; gap: 2px; flex-wrap: nowrap; overflow-x: auto; }
-        .formula-box-prime .formula-main { font-size: 15px; }
-        .formula-box-prime .formula-symbol { font-size: 14px; }
-        .formula-box-prime .formula-superscript { font-size: 12px; top: -18px; }
+        
+        .formula-box-prime { 
+            background: #f1f5f9; padding: 38px 4px 32px; border-radius: 8px;
+            margin-top: 8px; margin-bottom: 0; border: 1px solid #e2e8f0;
+            display: flex; align-items: baseline; justify-content: center; gap: 2px; flex-wrap: nowrap; overflow-x: auto;
+        }
+        .formula-box-prime .formula-main { font-size: 16px; }
+        .formula-box-prime .formula-symbol { font-size: 15px; }
+        .formula-box-prime .formula-superscript { font-size: 14px; top: -22px; }
+        
         .formula-item { position: relative; display: inline-flex; align-items: baseline; }
         .formula-main { font-size: 17px; font-weight: 800; color: #0f172a; line-height: 1.2; }
         .formula-symbol { font-size: 16px; color: #475569; font-weight: normal; }
         .formula-superscript { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 13px; color: #667eea; font-weight: 700; white-space: nowrap; }
+        
         .btn-integrated { position: relative; display: inline-block; margin: 0 2px; vertical-align: baseline; }
         .btn-main { width: 28px; height: 16px; font-size: 11px; font-weight: bold; border-radius: 3px; cursor: pointer; border: none; color: white; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; vertical-align: baseline; }
-        .btn-plus-group { position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 1px; }
-        .btn-value { font-size: 11px; font-weight: 800; color: #0f172a; font-family: 'Courier New', monospace; line-height: 1; }
+        .btn-plus-group { position: absolute; bottom: calc(100% + 2px); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 1px; }        .btn-value { font-size: 13px; font-weight: 800; color: #0f172a; font-family: 'Courier New', monospace; line-height: 1; }
         .btn-plus { width: 28px; height: 20px; font-size: 13px; font-weight: bold; border-radius: 3px; cursor: pointer; border: none; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
         .btn-minus { position: absolute; top: calc(100% + 2px); left: 50%; transform: translateX(-50%); width: 28px; height: 20px; font-size: 13px; font-weight: bold; border-radius: 3px; cursor: pointer; border: none; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
         .btn-plus:active, .btn-main:active, .btn-minus:active { opacity: 0.7; }
+        
         .table-section { margin-top: 12px; margin-bottom: 0; }
         table { width: 100%; border-collapse: collapse; background: white; border-radius: 6px; overflow: hidden; margin-top: 8px; }
         th { background: #667eea; color: white; padding: 4px 2px; text-align: center; font-size: 11px; }
         td { padding: 0px 2px; text-align: center; border-bottom: 1px solid #eee; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.1; height: 20px; }
         tr.highlight { background: #e8f5e9; font-weight: bold; color: #2e7d32; }
+        td.out-of-range { background: #ffcccc !important; color: #cc0000 !important; font-weight: bold; }
+        
         .calc-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 6px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; transition: opacity 0.2s; margin-bottom: 2px; }
         .calc-btn:hover { opacity: 0.9; }
+        
         .chart-container { position: relative; width: 100%; aspect-ratio: 5 / 4.2; margin: 4px 0 0; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); touch-action: none; overflow: visible; z-index: 10; }
-        canvas { display: block; width: 100%; height: 100%; border-radius: 8px; }        .tooltip { position: fixed; background: rgba(30, 41, 59, 0.60); color: white; padding: 4px 8px; border-radius: 6px; font-size: 11px; pointer-events: none; display: none; z-index: 9999; white-space: nowrap; transform: translate(calc(-50% - 7px), -100%); margin-top: -50px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        canvas { display: block; width: 100%; height: 100%; border-radius: 8px; }
+        
+        .tooltip { position: fixed; background: rgba(30, 41, 59, 0.60); color: white; padding: 4px 8px; border-radius: 6px; font-size: 11px; pointer-events: none; display: none; z-index: 9999; white-space: nowrap; transform: translate(calc(-50% - 7px), -100%); margin-top: -50px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .tooltip::after { content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: rgba(30, 41, 59, 0.60); }
+        
         .validation { display: none; background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 8px; border-radius: 6px; margin-bottom: 8px; font-size: 14px; text-align: center; }
+        
         @media (max-width: 500px) {
-            .input-wrapper { gap: 4px; }
-            .u-column { width: 60px; }
-            .input-pair input { width: 50px; font-size: 14px; }
+            .input-wrapper { gap: 2px; }
+            .u-column { width: 50px; }
+            .input-pair input { width: 48px; font-size: 14px; }
             .input-pair label { font-size: 12px; }
-            .u-pair input { width: 54px; font-size: 14px; }
+            .u-pair input { width: 46px; font-size: 14px; }
             .formula-main { font-size: 15px; } .formula-symbol { font-size: 14px; }
             .formula-superscript { font-size: 11px; top: -18px; }
             .btn-main { width: 26px; height: 14px; font-size: 10px; }
             .btn-plus, .btn-minus { width: 26px; height: 18px; font-size: 12px; }
-            td { font-size: 13px; }
+            td { font-size: 12px; }
         }
     </style>
 </head>
@@ -76,8 +96,7 @@
                         <div class="input-pair"><label>X₃</label><input type="text" id="x3" value="3.600"></div>
                     </div>
                     <div class="input-row">
-                        <div class="input-pair"><label>Y₁</label><input type="text" id="y1" value="1.200"></div>
-                        <div class="input-pair"><label>Y₂</label><input type="text" id="y2" value="2.200"></div>
+                        <div class="input-pair"><label>Y₁</label><input type="text" id="y1" value="1.200"></div>                        <div class="input-pair"><label>Y₂</label><input type="text" id="y2" value="2.200"></div>
                         <div class="input-pair"><label>Y₃</label><input type="text" id="y3" value="3.300"></div>
                     </div>
                 </div>
@@ -96,7 +115,8 @@
                 <div class="formula-item"><span class="formula-superscript">K</span><span class="formula-main" id="fK">-</span></div>
                 <span class="formula-symbol"> / ( </span>
                 <div class="formula-item"><span class="formula-superscript">D₀</span><span class="formula-main" id="fD0">-</span></div>
-                <span class="formula-symbol"> - X ) </span>                <span class="formula-symbol" id="fSign"></span>
+                <span class="formula-symbol"> - X ) </span>
+                <span class="formula-symbol" id="fSign"></span>
                 <div class="formula-item"><span class="formula-superscript">C</span><span class="formula-main" id="fC">-</span></div>
                 <span class="formula-symbol"> + </span>
                 <div class="btn-integrated">
@@ -114,7 +134,6 @@
                 <span class="formula-symbol">·(X-X₁)</span>
             </div>
             
-            <!-- Новая формула с правильными именами cJ, cK, cL, cM -->
             <div class="formula-box-prime">
                 <span class="formula-symbol">Y' = (</span>
                 <div class="formula-item"><span class="formula-superscript">K'</span><span class="formula-main" id="fKp">-</span></div>
@@ -126,9 +145,20 @@
                 <div class="formula-item"><span class="formula-superscript">D'₀</span><span class="formula-main" id="fD0p">-</span></div>
                 <span class="formula-symbol"> - X') + </span>
                 <div class="formula-item"><span class="formula-superscript">C'</span><span class="formula-main" id="fCp">-</span></div>
-                <span class="formula-symbol"> - V₁'·</span>
+                <span class="formula-symbol"> - </span>                <div class="btn-integrated">
+                    <div class="btn-plus-group"><span class="btn-value" id="valV1p">16</span><button class="btn-plus" onclick="changeV1p(1)">+</button></div>
+                    <button class="btn-main" onclick="resetV1p()">V₁'</button>
+                    <button class="btn-minus" onclick="changeV1p(-1)">−</button>
+                </div>
+                <span class="formula-symbol">·</span>
                 <span class="formula-main" id="fCK">0</span>
-                <span class="formula-symbol"> - V₂'·</span>
+                <span class="formula-symbol"> - </span>
+                <div class="btn-integrated">
+                    <div class="btn-plus-group"><span class="btn-value" id="valV2p">66</span><button class="btn-plus" onclick="changeV2p(1)">+</button></div>
+                    <button class="btn-main" onclick="resetV2p()">V₂'</button>
+                    <button class="btn-minus" onclick="changeV2p(-1)">−</button>
+                </div>
+                <span class="formula-symbol">·</span>
                 <span class="formula-main" id="fCM">0</span>
             </div>
 
@@ -145,11 +175,15 @@
     </div>
     <script>
         let currentK=0,currentD0=0,currentC=0,baseX1=0,baseX2=0,baseX3=0;
-        const STEP_VAL=0.00607;        let stepsV1=0,stepsV2=0,currentV1=0,currentV2=0,currentU=4.3;
-        let currentKp=0,currentD0p=0,currentCp=0;
-        let stepsV1p=0,stepsV2p=0,currentV1p=0,currentV2p=0;
+        const STEP_VAL=0.00607;
         
-        // Коэффициенты новой формулы
+        let stepsV1=16, stepsV2=66;
+        let currentV1=0, currentV2=0;
+        let currentU=4.3;
+        
+        let currentKp=0, currentD0p=0, currentCp=0;
+        let currentV1p=16, currentV2p=66;
+        
         let cJ=0,cK=0,cL=0,cM=0;
         
         const X_MIN=0,X_MAX=5.0,Y_MIN=0,Y_MAX=4.2;
@@ -161,9 +195,6 @@
             if(!currentK)return 0;
             return currentK/(currentD0-x)+currentC+currentV1*(baseX3-x)+currentV2*(x-baseX1);
         }
-
-        // ТОЧНАЯ ФОРМУЛА ИЗ ФАЙЛА (с заменой имен A->J, B->K, G->L, H->M)
-        // X' встречается строго один раз
         function calculateHyperbolaPrime(x){
             if(!currentKp||!currentD0p)return 0;
             const xp=x*4096/currentU;
@@ -194,7 +225,8 @@
 
         function drawChart(ip){
             if(!ctx)return;updateCanvasMetrics();
-            const d=window.devicePixelRatio||1;            ctx.clearRect(0,0,canvasW,canvasH);
+            const d=window.devicePixelRatio||1;
+            ctx.clearRect(0,0,canvasW,canvasH);
             ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
             for(let v=0;v<=X_MAX;v+=0.5){const x=toCanvasX(v);ctx.beginPath();ctx.moveTo(x,offsetY);ctx.lineTo(x,canvasH-offsetY);ctx.stroke();}
             for(let v=0;v<=Y_MAX;v+=0.5){const y=toCanvasY(v);ctx.beginPath();ctx.moveTo(offsetX,y);ctx.lineTo(canvasW-offsetX,y);ctx.stroke();}
@@ -211,8 +243,7 @@
             ctx.textAlign='left';
             for(let v=0.5;v<=Y_MAX;v+=0.5)ctx.fillText(Math.floor(v*256/currentU),offsetX+6*d,toCanvasY(v));
             if(currentU>=X_MIN&&currentU<=X_MAX){
-                const uX=toCanvasX(currentU);ctx.strokeStyle='rgba(231,76,60,0.6)';ctx.lineWidth=d;ctx.setLineDash([4*d,4*d]);
-                ctx.beginPath();ctx.moveTo(uX,offsetY);ctx.lineTo(uX,canvasH-offsetY);ctx.stroke();ctx.setLineDash([]);
+                const uX=toCanvasX(currentU);ctx.strokeStyle='rgba(231,76,60,0.6)';ctx.lineWidth=d;ctx.setLineDash([4*d,4*d]);                ctx.beginPath();ctx.moveTo(uX,offsetY);ctx.lineTo(uX,canvasH-offsetY);ctx.stroke();ctx.setLineDash([]);
             }
             if(hoverX!==null){const yH=calculateHyperbola(hoverX);if(yH>=Y_MIN&&yH<=Y_MAX){
                 const cy=toCanvasY(yH);ctx.strokeStyle='rgba(102,126,234,0.5)';ctx.lineWidth=d;ctx.setLineDash([4*d,4*d]);
@@ -230,13 +261,11 @@
             ctx.save();ctx.strokeStyle='#e74c3c';ctx.lineWidth=2*d;ctx.setLineDash([6*d,4*d]);ctx.beginPath();
             ctx.moveTo(toCanvasX(ip[0].x),toCanvasY(ip[0].y));ctx.lineTo(toCanvasX(ip[2].x),toCanvasY(ip[2].y));ctx.stroke();ctx.restore();
             
-            // Синий график (старая формула)
             ctx.strokeStyle='#667eea';ctx.lineWidth=3*d;ctx.beginPath();let s=false;const pW=X_MAX*scale;
             for(let px=0;px<=pW;px+=2){const x=px/scale,y=calculateHyperbola(x);if(y>=Y_MIN&&y<=Y_MAX){if(!s){ctx.moveTo(toCanvasX(x),toCanvasY(y));s=true;}else ctx.lineTo(toCanvasX(x),toCanvasY(y));}else s=false;}
             ctx.stroke();ctx.fillStyle='#667eea';
             for(let x=0;x<=X_MAX;x+=0.2){const y=calculateHyperbola(x);if(y>=Y_MIN&&y<=Y_MAX){ctx.beginPath();ctx.arc(toCanvasX(x),toCanvasY(y),3*d,0,Math.PI*2);ctx.fill();}}
             
-            // Оранжевый график (новая формула, переведенная в вольты для отображения)
             ctx.strokeStyle='#ff8c00';ctx.lineWidth=3*d;ctx.beginPath();s=false;
             for(let px=0;px<=pW;px+=2){const x=px/scale,ym=calcYmod(x);if(ym>=Y_MIN&&ym<=Y_MAX){if(!s){ctx.moveTo(toCanvasX(x),toCanvasY(ym));s=true;}else ctx.lineTo(toCanvasX(x),toCanvasY(ym));}else s=false;}
             ctx.stroke();ctx.fillStyle='#ff8c00';
@@ -244,6 +273,7 @@
             
             if(currentU>=X_MIN&&currentU<=X_MAX){const yA=calculateHyperbola(currentU);if(yA>=Y_MIN&&yA<=Y_MAX){ctx.fillStyle='#e74c3c';ctx.beginPath();ctx.arc(toCanvasX(currentU),toCanvasY(yA),3*d,0,Math.PI*2);ctx.fill();}}
         }
+
         function refreshTooltip(){
             if(hoverX===null)return;
             const yH=calculateHyperbola(hoverX);
@@ -262,7 +292,6 @@
             tooltip.style.top=(toCanvasY(yH)/d+r.top)+"px";
             tooltip.style.display='block';
         }
-
         function handleCanvasMove(e){
             const r=canvas.getBoundingClientRect(),cx=(e.clientX||(e.touches&&e.touches[0].clientX));
             if(cx===undefined)return;const c=(cx-r.left)*(window.devicePixelRatio||1);
@@ -272,19 +301,61 @@
         }
         function hideTooltip(){tooltip.style.display='none';if(hoverX!==null){hoverX=null;requestAnimationFrame(()=>buildTableAndChart());}}
 
-        function recalcPrime(){
+        function readCurrentU(){
+            const uEl=document.getElementById('u');
+            if(uEl){const u=parseFloat(uEl.value);if(!isNaN(u)&&u>0)currentU=u;}
+        }
+
+        // Проверка полей ввода координат на превышение U
+        function checkInputBounds(){
+            const ids=['x1','x2','x3','y1','y2','y3'];
+            ids.forEach(id=>{
+                const el=document.getElementById(id);
+                if(!el)return;
+                const val=parseFloat(el.value);
+                if(!isNaN(val) && val > currentU){
+                    el.classList.add('out-of-range');
+                } else {
+                    el.classList.remove('out-of-range');
+                }
+            });
+        }
+
+        function recalcAll(){
+            readCurrentU();
+            checkInputBounds();
             updatePrimeValues();
             refreshTooltip();
             if(currentK)buildTableAndChart();
         }
 
-        function changeV1(dir){if(isSyncing)return;isSyncing=true;stepsV1+=dir;if(stepsV1>16)stepsV1=16;if(stepsV1<-16)stepsV1=-16;currentV1=parseFloat((stepsV1*STEP_VAL).toFixed(5));stepsV1p=stepsV1;currentV1p=stepsV1p;updateValueDisplay();recalcPrime();isSyncing=false;}
-        function resetV1(){if(isSyncing)return;isSyncing=true;stepsV1=0;currentV1=0;stepsV1p=0;currentV1p=0;updateValueDisplay();recalcPrime();isSyncing=false;}
-        function changeV1p(dir){if(isSyncing)return;isSyncing=true;stepsV1p+=dir;if(stepsV1p>16)stepsV1p=16;if(stepsV1p<-16)stepsV1p=-16;currentV1p=stepsV1p;stepsV1=stepsV1p;currentV1=parseFloat((stepsV1*STEP_VAL).toFixed(5));updateValueDisplay();recalcPrime();isSyncing=false;}
-        function resetV1p(){resetV1();}
-        function changeV2(dir){if(isSyncing)return;isSyncing=true;stepsV2+=dir;if(stepsV2>16)stepsV2=16;if(stepsV2<-66)stepsV2=-66;currentV2=parseFloat((stepsV2*STEP_VAL).toFixed(5));stepsV2p=stepsV2;currentV2p=stepsV2p;updateValueDisplay();recalcPrime();isSyncing=false;}
-        function resetV2(){if(isSyncing)return;isSyncing=true;stepsV2=0;currentV2=0;stepsV2p=0;currentV2p=0;updateValueDisplay();recalcPrime();isSyncing=false;}
-        function changeV2p(dir){if(isSyncing)return;isSyncing=true;stepsV2p+=dir;if(stepsV2p>16)stepsV2p=16;if(stepsV2p<-66)stepsV2p=-66;currentV2p=stepsV2p;stepsV2=stepsV2p;currentV2=parseFloat((stepsV2*STEP_VAL).toFixed(5));updateValueDisplay();recalcPrime();isSyncing=false;}
+        function changeV1(dir){
+            if(isSyncing)return;isSyncing=true;
+            stepsV1+=dir; if(stepsV1>32)stepsV1=32; if(stepsV1<0)stepsV1=0;
+            currentV1p=stepsV1;
+            currentV1=parseFloat(((stepsV1-16)*STEP_VAL).toFixed(5));
+            updateValueDisplay();recalcAll();isSyncing=false;
+        }
+        function resetV1(){
+            if(isSyncing)return;isSyncing=true;
+            stepsV1=16; currentV1p=16; currentV1=0;
+            updateValueDisplay();recalcAll();isSyncing=false;
+        }
+        function changeV1p(dir){changeV1(dir);}        function resetV1p(){resetV1();}
+
+        function changeV2(dir){
+            if(isSyncing)return;isSyncing=true;
+            stepsV2+=dir; if(stepsV2>82)stepsV2=82; if(stepsV2<0)stepsV2=0;
+            currentV2p=stepsV2;
+            currentV2=parseFloat(((stepsV2-66)*STEP_VAL).toFixed(5));
+            updateValueDisplay();recalcAll();isSyncing=false;
+        }
+        function resetV2(){
+            if(isSyncing)return;isSyncing=true;
+            stepsV2=66; currentV2p=66; currentV2=0;
+            updateValueDisplay();recalcAll();isSyncing=false;
+        }
+        function changeV2p(dir){changeV2(dir);}
         function resetV2p(){resetV2();}
 
         function updateValueDisplay(){
@@ -292,40 +363,39 @@
             if(g('valV1'))g('valV1').textContent=currentV1.toFixed(3);
             if(g('valV2'))g('valV2').textContent=currentV2.toFixed(3);
             if(g('valV1p'))g('valV1p').textContent=currentV1p;
-            if(g('valV1p2'))g('valV1p2').textContent=currentV1p;            if(g('valV2p'))g('valV2p').textContent=currentV2p;
-            if(g('valV2p2'))g('valV2p2').textContent=currentV2p;
+            if(g('valV2p'))g('valV2p').textContent=currentV2p;
             if(g('fCJ'))g('fCJ').textContent=Math.round(cJ);
             if(g('fCK'))g('fCK').textContent=Math.round(cK);
             if(g('fCL'))g('fCL').textContent=Math.round(cL);
             if(g('fCM'))g('fCM').textContent=Math.round(cM);
         }
 
-        // РАСЧЕТ КОЭФФИЦИЕНТОВ ПО АЛГОРИТМУ ИЗ ФАЙЛА
         function updatePrimeValues(){
             if(currentU<=0||!baseX1||!baseX3)return;
-            currentKp=currentK*1048576/(currentU*currentU);
-            currentD0p=currentD0*4096/currentU;
-            currentCp=currentC*256/currentU;
+            
+            let K_base = currentK*1048576/(currentU*currentU);
+            let D0_base = currentD0*4096/currentU;
+            let C_base = currentC*256/currentU;
             
             const x1s=baseX1*4096/currentU;
             const x3s=baseX3*4096/currentU;
-            const d1=currentD0p-x1s;
-            const d3=currentD0p-x3s;
+            const d1=D0_base-x1s;
+            const d3=D0_base-x3s;
             
-            // stepY = целевое изменение Y' при одном шаге кнопки
             const stepY=STEP_VAL*(baseX3-baseX1)*256/currentU;
             
-            // Расчет для V1' (cJ, cK)
             if(Math.abs(d3-d1)>1e-10){
                 cK=stepY*d1/(d3-d1);
                 cJ=cK*d3;
             }else{cJ=0;cK=0;}
             
-            // Расчет для V2' (cL, cM)
             if(Math.abs(d1-d3)>1e-10){
-                cM=stepY*d3/(d1-d3);
-                cL=cM*d1;
+                cM=stepY*d3/(d1-d3);                cL=cM*d1;
             }else{cL=0;cM=0;}
+
+            currentKp = K_base - 16*cJ - 66*cL;
+            currentD0p = D0_base;
+            currentCp = C_base + 16*cK + 66*cM;
 
             const g=id=>document.getElementById(id);
             if(g('fKp'))g('fKp').textContent=Math.round(currentKp);
@@ -341,7 +411,8 @@
         function buildTableAndChart(){
             if(!currentK)return;
             const tb=document.getElementById('tableBody');if(!tb)return;tb.innerHTML='';
-            const mn=Math.min(baseX1,baseX2,baseX3),mx=Math.max(baseX1,baseX2,baseX3),st=(mx-mn)/14;            const bY1=currentK/(currentD0-baseX1)+currentC;
+            const mn=Math.min(baseX1,baseX2,baseX3),mx=Math.max(baseX1,baseX2,baseX3),st=(mx-mn)/14;
+            const bY1=currentK/(currentD0-baseX1)+currentC;
             const bY2=currentK/(currentD0-baseX2)+currentC;
             const bY3=currentK/(currentD0-baseX3)+currentC;
             const ip=[
@@ -355,15 +426,41 @@
                 const yMod=calcYmod(x);
                 const xPrime=Math.floor(x*4096/currentU);
                 const yPrime=calculateHyperbolaPrime(x);
+                
                 const r=tb.insertRow();
-                r.insertCell(0).textContent=x.toFixed(3);
-                r.insertCell(1).textContent=y.toFixed(3);
-                r.insertCell(2).textContent=yMod.toFixed(3);
-                r.insertCell(3).textContent=xPrime;
-                r.insertCell(4).textContent=Math.round(yPrime);
-                const isI=ip.some(p=>Math.abs(p.x-x)<0.01);
-                r.insertCell(5).textContent=isI?'✓':'-';
-                if(isI)r.className='highlight';
+                
+                const cellX = r.insertCell(0);
+                cellX.textContent=x.toFixed(3);
+                if(x > currentU) cellX.className='out-of-range';
+                
+                const cellY = r.insertCell(1);
+                cellY.textContent=y.toFixed(3);
+                if(y > currentU) cellY.className='out-of-range';
+                
+                const cellYmod = r.insertCell(2);
+                cellYmod.textContent=yMod.toFixed(3);
+                if(yMod > currentU) cellYmod.className='out-of-range';                
+                const cellXp = r.insertCell(3);
+                cellXp.textContent=xPrime;
+                if(xPrime > 4095) cellXp.className='out-of-range';
+                
+                const cellYp = r.insertCell(4);
+                cellYp.textContent=Math.round(yPrime);
+                if(Math.round(yPrime) > 255) cellYp.className='out-of-range';
+                
+                const cellStatus = r.insertCell(5);
+                const matchThreshold = Math.max(Math.abs(y), Math.abs(yMod)) * 0.01;
+                const isMatch = Math.abs(y - yMod) <= matchThreshold;
+                cellStatus.textContent=isMatch?'✓':'-';
+                
+                const isInput = ip.some(p=>Math.abs(p.x-x)<0.01);
+                if(isInput && !cellX.classList.contains('out-of-range') && 
+                   !cellY.classList.contains('out-of-range') && 
+                   !cellYmod.classList.contains('out-of-range') &&
+                   !cellXp.classList.contains('out-of-range') &&
+                   !cellYp.classList.contains('out-of-range')){
+                    r.className='highlight';
+                }
             }
             drawChart(ip);
         }
@@ -383,17 +480,18 @@
                 const D0=(Q*x1-x3)/(Q-1);if(Math.abs(D0-x1)<0.1||Math.abs(D0-x2)<0.1)throw new Error("Асимптота близко");
                 const K=dy12*(D0-x1)*(D0-x2)/dx12,C=y1-K/(D0-x1);
                 currentK=K;currentD0=D0;currentC=C;baseX1=x1;baseX2=x2;baseX3=x3;
-                const uEl=document.getElementById('u');
-                if(uEl){const u=parseFloat(uEl.value);if(!isNaN(u)&&u>0)currentU=u;}
+                
                 const s=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
                 s('fK',K.toFixed(2));s('fD0',D0.toFixed(2));s('fC',Math.abs(C).toFixed(2));s('fSign',C>=0?'+ ':'- ');
-                updateValueDisplay();updatePrimeValues();refreshAll();
+                updateValueDisplay();
+                recalcAll();
             }catch(e){val.style.display='block';val.textContent='❌ '+e.message;console.error(e);}
         }
-        window.onload=function(){
-            canvas=document.getElementById('chart');if(!canvas){console.error('No canvas');return;}
+
+        window.onload=function(){            canvas=document.getElementById('chart');if(!canvas){console.error('No canvas');return;}
             ctx=canvas.getContext('2d');tooltip=document.getElementById('tooltip');
-            const uEl=document.getElementById('u');currentU=uEl?(parseFloat(uEl.value)||4.3):4.3;
+            readCurrentU();
+            checkInputBounds();
             canvas.addEventListener('touchstart',e=>{e.preventDefault();handleCanvasMove(e.touches[0]);},{passive:false});
             canvas.addEventListener('touchmove',e=>{e.preventDefault();handleCanvasMove(e.touches[0]);},{passive:false});
             canvas.addEventListener('touchend',hideTooltip);
