@@ -113,42 +113,25 @@
                 </div>
                 <span class="formula-symbol">·(X-X₁)</span>
             </div>
+            
+            <!-- Новая формула с правильными именами cJ, cK, cL, cM -->
             <div class="formula-box-prime">
-                <span class="formula-symbol">Y' = </span>
+                <span class="formula-symbol">Y' = (</span>
                 <div class="formula-item"><span class="formula-superscript">K'</span><span class="formula-main" id="fKp">-</span></div>
-                <span class="formula-symbol">/(</span>
+                <span class="formula-symbol"> + V₁'·</span>
+                <span class="formula-main" id="fCJ">0</span>
+                <span class="formula-symbol"> + V₂'·</span>
+                <span class="formula-main" id="fCL">0</span>
+                <span class="formula-symbol">) / (</span>
                 <div class="formula-item"><span class="formula-superscript">D'₀</span><span class="formula-main" id="fD0p">-</span></div>
-                <span class="formula-symbol">-X')+</span>
+                <span class="formula-symbol"> - X') + </span>
                 <div class="formula-item"><span class="formula-superscript">C'</span><span class="formula-main" id="fCp">-</span></div>
-                <span class="formula-symbol">+((</span>
-                <div class="btn-integrated">
-                    <div class="btn-plus-group"><span class="btn-value" id="valV2p">0</span><button class="btn-plus" onclick="changeV2p(1)">+</button></div>
-                    <button class="btn-main" onclick="resetV2p()">V₂'</button>
-                    <button class="btn-minus" onclick="changeV2p(-1)">−</button>
-                </div>
-                <span class="formula-symbol">-</span>
-                <div class="btn-integrated">
-                    <div class="btn-plus-group"><span class="btn-value" id="valV1p">0</span><button class="btn-plus" onclick="changeV1p(1)">+</button></div>
-                    <button class="btn-main" onclick="resetV1p()">V₁'</button>
-                    <button class="btn-minus" onclick="changeV1p(-1)">−</button>
-                </div>
-                <span class="formula-symbol">)·X'+</span>
-                <div class="btn-integrated">
-                    <div class="btn-plus-group"><span class="btn-value" id="valV1p2">0</span><button class="btn-plus" onclick="changeV1p(1)">+</button></div>
-                    <button class="btn-main" onclick="resetV1p()">V₁'</button>
-                    <button class="btn-minus" onclick="changeV1p(-1)">−</button>
-                </div>
-                <span class="formula-symbol">·</span>
-                <span class="formula-main" id="fA">0</span>
-                <span class="formula-symbol">-</span>
-                <div class="btn-integrated">
-                    <div class="btn-plus-group"><span class="btn-value" id="valV2p2">0</span><button class="btn-plus" onclick="changeV2p(1)">+</button></div>
-                    <button class="btn-main" onclick="resetV2p()">V₂'</button>
-                    <button class="btn-minus" onclick="changeV2p(-1)">−</button>
-                </div>                <span class="formula-symbol">·</span>
-                <span class="formula-main" id="fB">0</span>
-                <span class="formula-symbol">)/S</span>
+                <span class="formula-symbol"> - V₁'·</span>
+                <span class="formula-main" id="fCK">0</span>
+                <span class="formula-symbol"> - V₂'·</span>
+                <span class="formula-main" id="fCM">0</span>
             </div>
+
             <div class="table-section">
                 <button class="calc-btn" onclick="calculate()">Рассчитать коэффициенты</button>
                 <table>
@@ -162,11 +145,13 @@
     </div>
     <script>
         let currentK=0,currentD0=0,currentC=0,baseX1=0,baseX2=0,baseX3=0;
-        const STEP_VAL=0.00607;
-        let stepsV1=0,stepsV2=0,currentV1=0,currentV2=0,currentU=4.3;
+        const STEP_VAL=0.00607;        let stepsV1=0,stepsV2=0,currentV1=0,currentV2=0,currentU=4.3;
         let currentKp=0,currentD0p=0,currentCp=0;
         let stepsV1p=0,stepsV2p=0,currentV1p=0,currentV2p=0;
-        let constA=0,constB=0,scaleFactor=1;
+        
+        // Коэффициенты новой формулы
+        let cJ=0,cK=0,cL=0,cM=0;
+        
         const X_MIN=0,X_MAX=5.0,Y_MIN=0,Y_MAX=4.2;
         let canvasW=0,canvasH=0,scale=0,offsetX=0,offsetY=0;
         const PADDING=40;
@@ -176,30 +161,40 @@
             if(!currentK)return 0;
             return currentK/(currentD0-x)+currentC+currentV1*(baseX3-x)+currentV2*(x-baseX1);
         }
+
+        // ТОЧНАЯ ФОРМУЛА ИЗ ФАЙЛА (с заменой имен A->J, B->K, G->L, H->M)
+        // X' встречается строго один раз
         function calculateHyperbolaPrime(x){
-            if(!currentKp||!scaleFactor)return 0;
+            if(!currentKp||!currentD0p)return 0;
             const xp=x*4096/currentU;
-            const d=currentD0p-xp;
-            if(Math.abs(d)<1e-10)return 0;
-            return currentKp/d+currentCp+((currentV2p-currentV1p)*xp+currentV1p*constA-currentV2p*constB)/scaleFactor;
+            const denom=currentD0p-xp;
+            if(Math.abs(denom)<1e-10)return 0;
+            return (currentKp + cJ*currentV1p + cL*currentV2p)/denom + currentCp - cK*currentV1p - cM*currentV2p;
         }
+
         function calcYmod(x){return calculateHyperbolaPrime(x)*currentU/256;}
-        function calculateLineX(y,x1,y1,x3,y3){return Math.abs(y3-y1)<1e-10?x1:x1+(x3-x1)/(y3-y1)*(y-y1);}
+
+        function calculateLineX(y,x1,y1,x3,y3){
+            return Math.abs(y3-y1)<1e-10?x1:x1+(x3-x1)/(y3-y1)*(y-y1);
+        }
+
         function toCanvasX(x){return offsetX+x*scale;}
         function toCanvasY(y){return canvasH-offsetY-y*scale;}
         function toMathX(cx){return(cx-offsetX)/scale;}
+
         function updateCanvasMetrics(){
             const r=canvas.getBoundingClientRect(),d=window.devicePixelRatio||1;
             canvas.width=r.width*d;canvas.height=r.height*d;
             canvasW=canvas.width;canvasH=canvas.height;
             const p=PADDING*d,aW=canvasW-2*p,aH=canvasH-2*p;
             scale=Math.min(aW/X_MAX,aH/Y_MAX);
-            const pW=X_MAX*scale,pH=Y_MAX*scale;            offsetX=(canvasW-pW)/2;offsetY=(canvasH-pH)/2;
+            const pW=X_MAX*scale,pH=Y_MAX*scale;
+            offsetX=(canvasW-pW)/2;offsetY=(canvasH-pH)/2;
         }
+
         function drawChart(ip){
             if(!ctx)return;updateCanvasMetrics();
-            const d=window.devicePixelRatio||1;
-            ctx.clearRect(0,0,canvasW,canvasH);
+            const d=window.devicePixelRatio||1;            ctx.clearRect(0,0,canvasW,canvasH);
             ctx.strokeStyle='#e2e8f0';ctx.lineWidth=1;
             for(let v=0;v<=X_MAX;v+=0.5){const x=toCanvasX(v);ctx.beginPath();ctx.moveTo(x,offsetY);ctx.lineTo(x,canvasH-offsetY);ctx.stroke();}
             for(let v=0;v<=Y_MAX;v+=0.5){const y=toCanvasY(v);ctx.beginPath();ctx.moveTo(offsetX,y);ctx.lineTo(canvasW-offsetX,y);ctx.stroke();}
@@ -234,16 +229,22 @@
             }}
             ctx.save();ctx.strokeStyle='#e74c3c';ctx.lineWidth=2*d;ctx.setLineDash([6*d,4*d]);ctx.beginPath();
             ctx.moveTo(toCanvasX(ip[0].x),toCanvasY(ip[0].y));ctx.lineTo(toCanvasX(ip[2].x),toCanvasY(ip[2].y));ctx.stroke();ctx.restore();
+            
+            // Синий график (старая формула)
             ctx.strokeStyle='#667eea';ctx.lineWidth=3*d;ctx.beginPath();let s=false;const pW=X_MAX*scale;
             for(let px=0;px<=pW;px+=2){const x=px/scale,y=calculateHyperbola(x);if(y>=Y_MIN&&y<=Y_MAX){if(!s){ctx.moveTo(toCanvasX(x),toCanvasY(y));s=true;}else ctx.lineTo(toCanvasX(x),toCanvasY(y));}else s=false;}
             ctx.stroke();ctx.fillStyle='#667eea';
             for(let x=0;x<=X_MAX;x+=0.2){const y=calculateHyperbola(x);if(y>=Y_MIN&&y<=Y_MAX){ctx.beginPath();ctx.arc(toCanvasX(x),toCanvasY(y),3*d,0,Math.PI*2);ctx.fill();}}
+            
+            // Оранжевый график (новая формула, переведенная в вольты для отображения)
             ctx.strokeStyle='#ff8c00';ctx.lineWidth=3*d;ctx.beginPath();s=false;
             for(let px=0;px<=pW;px+=2){const x=px/scale,ym=calcYmod(x);if(ym>=Y_MIN&&ym<=Y_MAX){if(!s){ctx.moveTo(toCanvasX(x),toCanvasY(ym));s=true;}else ctx.lineTo(toCanvasX(x),toCanvasY(ym));}else s=false;}
             ctx.stroke();ctx.fillStyle='#ff8c00';
             for(let x=0;x<=X_MAX;x+=0.2){const ym=calcYmod(x);if(ym>=Y_MIN&&ym<=Y_MAX){ctx.beginPath();ctx.arc(toCanvasX(x),toCanvasY(ym),3*d,0,Math.PI*2);ctx.fill();}}
+            
             if(currentU>=X_MIN&&currentU<=X_MAX){const yA=calculateHyperbola(currentU);if(yA>=Y_MIN&&yA<=Y_MAX){ctx.fillStyle='#e74c3c';ctx.beginPath();ctx.arc(toCanvasX(currentU),toCanvasY(yA),3*d,0,Math.PI*2);ctx.fill();}}
-        }        function refreshTooltip(){
+        }
+        function refreshTooltip(){
             if(hoverX===null)return;
             const yH=calculateHyperbola(hoverX);
             if(yH<Y_MIN||yH>Y_MAX){tooltip.style.display='none';return;}
@@ -251,9 +252,7 @@
             const xL=calculateLineX(yH,baseX1,y1c,baseX3,y3c);
             const deltaX=hoverX-xL;
             const yMod=calcYmod(hoverX);
-            // Y красной прямой при hoverX (интерполяция между крайними точками)
             const yLine=y1c+(y3c-y1c)/(baseX3-baseX1)*(hoverX-baseX1);
-            // ИСПРАВЛЕНО: из координат гиперболы вычитаем координаты прямой
             const deltaYmod=yMod-yLine;
             tooltip.innerHTML="X прям.: "+xL.toFixed(3)+"<br>ΔX: "+deltaX.toFixed(3)+
                 "<br>X гипер: "+hoverX.toFixed(3)+"<br>Y гипер: "+yH.toFixed(3)+
@@ -263,6 +262,7 @@
             tooltip.style.top=(toCanvasY(yH)/d+r.top)+"px";
             tooltip.style.display='block';
         }
+
         function handleCanvasMove(e){
             const r=canvas.getBoundingClientRect(),cx=(e.clientX||(e.touches&&e.touches[0].clientX));
             if(cx===undefined)return;const c=(cx-r.left)*(window.devicePixelRatio||1);
@@ -272,11 +272,10 @@
         }
         function hideTooltip(){tooltip.style.display='none';if(hoverX!==null){hoverX=null;requestAnimationFrame(()=>buildTableAndChart());}}
 
-        // Пересчёт при нажатии кнопок V — считывает текущее U из поля
         function recalcPrime(){
-            const uEl=document.getElementById('u');
-            if(uEl){const u=parseFloat(uEl.value);if(!isNaN(u)&&u>0)currentU=u;}
-            updatePrimeValues();refreshTooltip();if(currentK)buildTableAndChart();
+            updatePrimeValues();
+            refreshTooltip();
+            if(currentK)buildTableAndChart();
         }
 
         function changeV1(dir){if(isSyncing)return;isSyncing=true;stepsV1+=dir;if(stepsV1>16)stepsV1=16;if(stepsV1<-16)stepsV1=-16;currentV1=parseFloat((stepsV1*STEP_VAL).toFixed(5));stepsV1p=stepsV1;currentV1p=stepsV1p;updateValueDisplay();recalcPrime();isSyncing=false;}
@@ -292,32 +291,57 @@
             const g=id=>document.getElementById(id);
             if(g('valV1'))g('valV1').textContent=currentV1.toFixed(3);
             if(g('valV2'))g('valV2').textContent=currentV2.toFixed(3);
-            if(g('valV1p'))g('valV1p').textContent=currentV1p;            if(g('valV1p2'))g('valV1p2').textContent=currentV1p;
-            if(g('valV2p'))g('valV2p').textContent=currentV2p;
+            if(g('valV1p'))g('valV1p').textContent=currentV1p;
+            if(g('valV1p2'))g('valV1p2').textContent=currentV1p;            if(g('valV2p'))g('valV2p').textContent=currentV2p;
             if(g('valV2p2'))g('valV2p2').textContent=currentV2p;
-            if(g('fA'))g('fA').textContent=constA;
-            if(g('fB'))g('fB').textContent=constB;
+            if(g('fCJ'))g('fCJ').textContent=Math.round(cJ);
+            if(g('fCK'))g('fCK').textContent=Math.round(cK);
+            if(g('fCL'))g('fCL').textContent=Math.round(cL);
+            if(g('fCM'))g('fCM').textContent=Math.round(cM);
         }
+
+        // РАСЧЕТ КОЭФФИЦИЕНТОВ ПО АЛГОРИТМУ ИЗ ФАЙЛА
         function updatePrimeValues(){
             if(currentU<=0||!baseX1||!baseX3)return;
             currentKp=currentK*1048576/(currentU*currentU);
             currentD0p=currentD0*4096/currentU;
             currentCp=currentC*256/currentU;
-            constA=Math.round(baseX3*4096/currentU);
-            constB=Math.round(baseX1*4096/currentU);
-            const t=STEP_VAL*(baseX3-baseX1)*256/currentU;
-            scaleFactor=t>1e-10?(constA-constB)/t:1;
+            
+            const x1s=baseX1*4096/currentU;
+            const x3s=baseX3*4096/currentU;
+            const d1=currentD0p-x1s;
+            const d3=currentD0p-x3s;
+            
+            // stepY = целевое изменение Y' при одном шаге кнопки
+            const stepY=STEP_VAL*(baseX3-baseX1)*256/currentU;
+            
+            // Расчет для V1' (cJ, cK)
+            if(Math.abs(d3-d1)>1e-10){
+                cK=stepY*d1/(d3-d1);
+                cJ=cK*d3;
+            }else{cJ=0;cK=0;}
+            
+            // Расчет для V2' (cL, cM)
+            if(Math.abs(d1-d3)>1e-10){
+                cM=stepY*d3/(d1-d3);
+                cL=cM*d1;
+            }else{cL=0;cM=0;}
+
             const g=id=>document.getElementById(id);
             if(g('fKp'))g('fKp').textContent=Math.round(currentKp);
             if(g('fD0p'))g('fD0p').textContent=Math.round(currentD0p);
             if(g('fCp'))g('fCp').textContent=Math.abs(Math.round(currentCp));
             if(g('fSignP'))g('fSignP').textContent=currentCp>=0?'+ ':'- ';
+            if(g('fCJ'))g('fCJ').textContent=Math.round(cJ);
+            if(g('fCK'))g('fCK').textContent=Math.round(cK);
+            if(g('fCL'))g('fCL').textContent=Math.round(cL);
+            if(g('fCM'))g('fCM').textContent=Math.round(cM);
         }
+
         function buildTableAndChart(){
             if(!currentK)return;
             const tb=document.getElementById('tableBody');if(!tb)return;tb.innerHTML='';
-            const mn=Math.min(baseX1,baseX2,baseX3),mx=Math.max(baseX1,baseX2,baseX3),st=(mx-mn)/14;
-            const bY1=currentK/(currentD0-baseX1)+currentC;
+            const mn=Math.min(baseX1,baseX2,baseX3),mx=Math.max(baseX1,baseX2,baseX3),st=(mx-mn)/14;            const bY1=currentK/(currentD0-baseX1)+currentC;
             const bY2=currentK/(currentD0-baseX2)+currentC;
             const bY3=currentK/(currentD0-baseX3)+currentC;
             const ip=[
@@ -341,8 +365,11 @@
                 r.insertCell(5).textContent=isI?'✓':'-';
                 if(isI)r.className='highlight';
             }
-            drawChart(ip);        }
+            drawChart(ip);
+        }
+
         function refreshAll(){buildTableAndChart();}
+
         function calculate(){
             const val=document.getElementById('validation');if(!val)return;val.style.display='none';
             try{
